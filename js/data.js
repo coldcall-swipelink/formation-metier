@@ -36,6 +36,7 @@ const STORE = {
       subZones: [
         {
           id: "epicerie",
+          enseignes: ["Lidl", "Aldi", "Netto", "Leader Price", "Grand Frais", "Colruyt", "Biocoop", "Naturalia", "La Vie Claire", "NaturéO", "So.bio", "Day by Day"],
           name: "Épicerie",
           icon: "🥫",
           description: "Épicerie salée et sucrée, conserves, petit-déjeuner, biscuiterie, apéritif.",
@@ -72,6 +73,7 @@ const STORE = {
         },
         {
           id: "liquides",
+          enseignes: ["Nicolas", "V and B", "Cavavin", "Le Repaire de Bacchus", "Lavinia", "Cash Vin", "Les Domaines qui Montent", "Le Petit Ballon"],
           name: "Liquides",
           icon: "🧃",
           description: "Eaux, sodas, jus, vins, bières, spiritueux, boissons chaudes.",
@@ -94,6 +96,7 @@ const STORE = {
         },
         {
           id: "dph",
+          enseignes: ["Sephora", "Marionnaud", "Nocibé", "Yves Rocher", "Rituals", "Kiko", "The Body Shop", "Normal", "Aroma-Zone", "Parashop", "Aubert", "Autour de Bébé", "Orchestra"],
           name: "DPH",
           icon: "🧴",
           description: "Droguerie, Parfumerie, Hygiène : entretien, beauté, soin, bébé, animalerie.",
@@ -116,6 +119,7 @@ const STORE = {
         },
         {
           id: "bazar",
+          enseignes: ["Action", "Gifi", "La Foir'Fouille", "Centrakor", "Babou", "Stokomani", "B and M", "Noz", "HEMA", "Normal", "MaxiBazar"],
           name: "Bazar léger",
           icon: "🎁",
           description: "Arts de la table, papeterie, jouets, saisonnier, petit électroménager.",
@@ -153,6 +157,7 @@ const STORE = {
       subZones: [
         {
           id: "boucherie",
+          enseignes: ["Grand Frais", "Metro", "Promocash", "Maison David", "Boucheries André"],
           name: "Boucherie",
           icon: "🥩",
           description: "Découpe, préparation et vente de viandes.",
@@ -189,6 +194,7 @@ const STORE = {
         },
         {
           id: "poissonnerie",
+          enseignes: ["Grand Frais", "Metro", "Promocash", "La Marée", "Poiscaille"],
           name: "Poissonnerie",
           icon: "🐟",
           description: "Marée, découpe et vente de poissons et fruits de mer.",
@@ -211,6 +217,7 @@ const STORE = {
         },
         {
           id: "boulangerie",
+          enseignes: ["Marie Blachère", "Ange", "La Mie Câline", "Paul", "Sophie Lebreuilly", "Feuillette", "Banette", "Brioche Dorée", "La Croissanterie", "Louise"],
           name: "Boulangerie / Pâtisserie",
           icon: "🥖",
           description: "Fabrication et cuisson de pains, viennoiseries et pâtisseries.",
@@ -233,6 +240,7 @@ const STORE = {
         },
         {
           id: "coupe",
+          enseignes: ["Grand Frais", "Metro", "Androuet", "La Fromagerie", "Lenôtre", "Fauchon"],
           name: "Charcuterie Traiteur Fromage",
           icon: "🧀",
           description: "Charcuterie, traiteur et fromage à la coupe (stand traditionnel).",
@@ -270,6 +278,7 @@ const STORE = {
       subZones: [
         {
           id: "cremerie-ls",
+          enseignes: ["Grand Frais", "Lidl", "Aldi", "Netto", "Colruyt"],
           name: "Produits laitiers (Crèmerie LS)",
           icon: "🥛",
           description: "Lait, yaourts, beurre, œufs, desserts frais.",
@@ -293,6 +302,7 @@ const STORE = {
         },
         {
           id: "charcuterie-ls",
+          enseignes: ["Grand Frais", "Lidl", "Aldi", "Netto", "Colruyt"],
           name: "Charcuterie / Traiteur LS",
           icon: "🥓",
           description: "Charcuterie préemballée, traiteur, snacking frais.",
@@ -315,6 +325,7 @@ const STORE = {
         },
         {
           id: "surgeles",
+          enseignes: ["Picard", "Thiriet", "Place du Marché", "Gel 2000"],
           name: "Surgelés",
           icon: "🧊",
           description: "Produits surgelés, glaces, plats préparés.",
@@ -352,6 +363,7 @@ const STORE = {
       subZones: [
         {
           id: "fl-sub",
+          enseignes: ["Grand Frais", "Biocoop", "Naturalia", "NaturéO", "So.bio", "Frais d'ici", "Les Halles"],
           name: "Fruits & Légumes",
           icon: "🍏",
           description: "Fruits, légumes, primeur.",
@@ -403,6 +415,7 @@ const STORE = {
       subZones: [
         {
           id: "librairie",
+          enseignes: ["Fnac", "Cultura", "Furet du Nord", "Gibert Joseph", "Decitre", "Relay", "Maison de la Presse"],
           name: "Librairie / Presse",
           icon: "📚",
           description: "Livres, BD, papeterie créative, presse.",
@@ -425,6 +438,7 @@ const STORE = {
         },
         {
           id: "multimedia",
+          enseignes: ["Fnac", "Darty", "Boulanger", "Micromania", "LDLC", "Materiel.net", "Cultura", "Cdiscount"],
           name: "Multimédia / High-Tech",
           icon: "🎮",
           description: "TV, son, informatique, téléphonie, jeux vidéo.",
@@ -462,6 +476,7 @@ const STORE = {
       subZones: [
         {
           id: "textile",
+          enseignes: ["Kiabi", "Gémo", "La Halle", "C and A", "Primark", "H and M", "Zeeman", "Vib's", "Cache Cache", "Jules"],
           name: "Textile",
           icon: "👕",
           description: "Prêt-à-porter homme, femme, enfant, chaussures, lingerie.",
@@ -484,6 +499,7 @@ const STORE = {
         },
         {
           id: "maison",
+          enseignes: ["But", "Conforama", "IKEA", "Maisons du Monde", "Darty", "Boulanger", "Electro Dépôt", "Casa", "Alinéa", "Zôdio"],
           name: "Maison / Électroménager",
           icon: "🛋️",
           description: "Arts de la table, linge de maison, gros et petit électroménager, bricolage.",
@@ -511,19 +527,20 @@ const STORE = {
     {
       id: "bricolage",
       area: "brico",
-      name: "Bricolage",
-      subtitle: "Outillage, jardin & déco",
+      name: "Bricolage / Jardinerie",
+      subtitle: "Bricolage & jardin",
       icon: "🔧",
       color: "#ea580c",
       manager: "mgr-bricolage",
       description:
-        "Le secteur bricolage, à droite du magasin : outillage, quincaillerie, jardin, plein air, peinture et décoration. Un univers technique de vente-conseil, très saisonnier (jardin) et fait de produits souvent encombrants.",
+        "Le secteur Bricolage / Jardinerie, à droite du magasin. Il se divise en deux sous-ensembles : le Bricolage (outillage, quincaillerie, électricité, peinture et déco) et la Jardinerie (plantes, jardin, plein air, mobilier de jardin). Un univers technique de vente-conseil, très saisonnier et fait de produits souvent encombrants.",
       subZones: [
         {
-          id: "outillage",
-          name: "Outillage & Quincaillerie",
+          id: "ss-bricolage",
+          enseignes: ["Leroy Merlin", "Castorama", "Brico Dépôt", "Weldom", "Mr Bricolage", "Bricomarché", "Bricorama", "Point P"],
+          name: "Bricolage",
           icon: "🔧",
-          description: "Outils à main et électroportatifs, quincaillerie, électricité.",
+          description: "Sous-ensemble Bricolage : outillage à main et électroportatif, quincaillerie, électricité, peinture, revêtements et décoration.",
           jobs: [
             {
               id: "resp-outillage",
@@ -537,7 +554,21 @@ const STORE = {
                 "Gère un assortiment de milliers de références (visserie, quincaillerie).",
                 "Met en avant les nouveautés électroportatif en tête de gondole.",
               ],
-              passerelles: ["resp-jardin", "resp-peinture", "resp-maison", "mgr-bricolage"],
+              passerelles: ["resp-peinture", "resp-jardin", "resp-maison", "mgr-bricolage"],
+            },
+            {
+              id: "resp-peinture",
+              title: "Responsable de rayon Peinture & Déco",
+              aliases: ["Chef de rayon peinture-décoration", "Responsable revêtements"],
+              photo: { icon: "🎨", gradient: ["#d97706", "#78350f"] },
+              description:
+                "Gère la peinture, les revêtements (sol, mur) et la décoration. Vente-conseil sur les finitions, les teintes et le calcul des quantités.",
+              examples: [
+                "Aide un client à calculer la quantité de peinture pour une pièce.",
+                "Conseille sur le type de revêtement adapté à un usage.",
+                "Anime le nuancier et les nouveautés décoration.",
+              ],
+              passerelles: ["resp-outillage", "resp-jardin", "mgr-bricolage"],
             },
             {
               id: "vendeur-brico",
@@ -556,18 +587,19 @@ const STORE = {
           ],
         },
         {
-          id: "jardin",
-          name: "Jardin & Plein air",
+          id: "jardinerie",
+          enseignes: ["Botanic", "Truffaut", "Jardiland", "Gamm Vert", "Villaverde", "Delbard", "Point Vert", "Baobab"],
+          name: "Jardinerie",
           icon: "🪴",
-          description: "Jardinerie, plantes, terreau, mobilier de jardin, barbecue, plein air.",
+          description: "Sous-ensemble Jardinerie : plantes, terreau, jardin, plein air, mobilier de jardin, barbecue.",
           jobs: [
             {
               id: "resp-jardin",
-              title: "Responsable de rayon Jardin",
-              aliases: ["Chef de rayon jardinerie", "Responsable plein air / jardin"],
+              title: "Responsable de rayon Jardinerie",
+              aliases: ["Chef de rayon jardinerie", "Responsable jardin / plein air"],
               photo: { icon: "🪴", gradient: ["#16a34a", "#14532d"] },
               description:
-                "Rayon très saisonnier (printemps/été) : jardinerie, mobilier de jardin, barbecue, plein air. Gros volumes ponctuels et forte théâtralisation.",
+                "Rayon très saisonnier (printemps/été) : jardinerie, plantes, mobilier de jardin, barbecue, plein air. Gros volumes ponctuels et forte théâtralisation.",
               examples: [
                 "Monte l'opération jardin au printemps (plantes, terreau, mobilier).",
                 "Gère les gros volumes saisonniers (barbecues, salons de jardin).",
@@ -575,27 +607,19 @@ const STORE = {
               ],
               passerelles: ["resp-outillage", "resp-peinture", "mgr-bricolage"],
             },
-          ],
-        },
-        {
-          id: "peinture",
-          name: "Peinture & Déco",
-          icon: "🎨",
-          description: "Peinture, revêtements sol et mur, droguerie technique, décoration.",
-          jobs: [
             {
-              id: "resp-peinture",
-              title: "Responsable de rayon Peinture & Déco",
-              aliases: ["Chef de rayon peinture-décoration", "Responsable revêtements"],
-              photo: { icon: "🎨", gradient: ["#d97706", "#78350f"] },
+              id: "vendeur-jardinerie",
+              title: "Vendeur-conseil Jardinerie",
+              aliases: ["Conseiller de vente jardinerie", "Employé rayon jardin"],
+              photo: { icon: "🌱", gradient: ["#22c55e", "#166534"] },
               description:
-                "Gère la peinture, les revêtements (sol, mur) et la décoration. Vente-conseil sur les finitions, les teintes et le calcul des quantités.",
+                "Accueille et conseille les clients sur les plantes et le jardin, entretient les végétaux et réapprovisionne le rayon.",
               examples: [
-                "Aide un client à calculer la quantité de peinture pour une pièce.",
-                "Conseille sur le type de revêtement adapté à un usage.",
-                "Anime le nuancier et les nouveautés décoration.",
+                "Conseille un client sur l'entretien d'une plante.",
+                "Arrose et soigne les végétaux du rayon.",
+                "Prépare l'implantation de la saison jardin.",
               ],
-              passerelles: ["resp-outillage", "resp-jardin", "mgr-bricolage"],
+              passerelles: ["resp-jardin", "vendeur-brico"],
             },
           ],
         },
@@ -689,6 +713,7 @@ const STORE = {
       subZones: [
         {
           id: "drive-prep",
+          enseignes: ["Chronodrive", "Leclerc Drive", "Auchan Drive", "Carrefour Drive", "Courses U", "Cora Drive", "Amazon"],
           name: "Préparation & retrait",
           icon: "🚗",
           description: "Picking des commandes, gestion des créneaux et remise au client au point de retrait.",
@@ -769,11 +794,11 @@ const STORE = {
     // Managers de secteur bricolage + chefs de département alimentaire / non-alimentaire
     "mgr-bricolage": {
       id: "mgr-bricolage",
-      title: "Manager de secteur Bricolage",
-      aliases: ["Responsable Bricolage", "Chef de secteur bricolage-jardin"],
+      title: "Manager de secteur Bricolage / Jardinerie",
+      aliases: ["Responsable Bricolage / Jardinerie", "Chef de secteur bricolage-jardin"],
       photo: { icon: "🧑‍💼", gradient: ["#ea580c", "#7c2d12"] },
       description:
-        "Chapeaute l'univers bricolage : outillage-quincaillerie, jardin/plein air et peinture-déco. Enjeu de vente-conseil technique, de saisonnalité (jardin) et de gestion de produits encombrants.",
+        "Chapeaute l'univers Bricolage / Jardinerie, en deux sous-ensembles : le Bricolage (outillage-quincaillerie, électricité, peinture-déco) et la Jardinerie (plantes, jardin, plein air). Enjeu de vente-conseil technique, de saisonnalité (jardin) et de gestion de produits encombrants.",
       examples: [
         "Pilote la saison jardin, temps fort commercial du secteur.",
         "Coordonne l'assortiment technique et la vente-conseil.",
@@ -1014,7 +1039,7 @@ const STORE = {
         "dph", "bazar",
         "librairie", "multimedia",
         "textile", "maison",
-        "outillage", "jardin", "peinture",
+        "ss-bricolage", "jardinerie",
       ],
       description:
         "La grande catégorie non-alimentaire : tout ce qui ne se mange pas. Elle regroupe une partie du PGC (DPH, bazar), le textile & maison, l'espace culturel et le bricolage. C'est normal que certains rayons soient communs avec le PGC.",

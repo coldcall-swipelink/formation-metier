@@ -160,14 +160,13 @@
           { sub: "maison",  x: 902, y: 614, w: 198, h: 76, pattern: "racks" },
         ],
       },
-      // Colonne EXTRÊME DROITE : Bricolage (nouveau secteur)
+      // Colonne EXTRÊME DROITE : Bricolage / Jardinerie (2 sous-ensembles)
       {
         id: "bricolage",
         x: 1136, y: 194, w: 168, h: 512,
         cells: [
-          { sub: "outillage", x: 1152, y: 236, w: 136, h: 150, pattern: "gondola" },
-          { sub: "jardin",    x: 1152, y: 400, w: 136, h: 150, pattern: "bins" },
-          { sub: "peinture",  x: 1152, y: 564, w: 136, h: 126, pattern: "gondola" },
+          { sub: "ss-bricolage", x: 1152, y: 236, w: 136, h: 218, pattern: "gondola" },
+          { sub: "jardinerie",   x: 1152, y: 470, w: 136, h: 218, pattern: "bins" },
         ],
       },
       // Façade : Caisses & Accueil (gauche) — Drive détaché — Entrée (droite)
@@ -211,6 +210,49 @@
 
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  /* ------------------------------------------------ Couleurs des enseignes */
+  // Couleurs de marque approximatives (pour les enseignes les plus connues) ;
+  // les autres reçoivent une couleur stable dérivée de leur nom.
+  const BRAND = {
+    "Action": "#ffd200", "Gifi": "#e2001a", "La Foir'Fouille": "#f39200", "Centrakor": "#e2001a",
+    "Leroy Merlin": "#78be20", "Castorama": "#0b4ea2", "Brico Dépôt": "#e2001a", "Weldom": "#e2001a",
+    "Mr Bricolage": "#e30613", "Bricomarché": "#e2001a", "Bricorama": "#009640",
+    "Botanic": "#5a9e3a", "Truffaut": "#e2001a", "Jardiland": "#78b41e", "Gamm Vert": "#8cc63f",
+    "Fnac": "#c8a200", "Darty": "#e2001a", "Boulanger": "#e30613", "Micromania": "#e2001a", "Cultura": "#e2001a",
+    "Kiabi": "#e2001a", "Gémo": "#e2001a", "La Halle": "#e2001a", "Primark": "#0093d0",
+    "IKEA": "#0058a3", "But": "#e2001a", "Conforama": "#f47216", "Maisons du Monde": "#6d6e71",
+    "Lidl": "#0050aa", "Aldi": "#002d72", "Netto": "#e2001a", "Colruyt": "#e2001a", "Grand Frais": "#7ab51d",
+    "Picard": "#003da5", "Thiriet": "#e2001a",
+    "Sephora": "#111111", "Marionnaud": "#e2001a", "Nocibé": "#e2007a", "Yves Rocher": "#1f7a44",
+    "Nicolas": "#7a1f2b", "Marie Blachère": "#e2001a", "Paul": "#5b2417", "Metro": "#003c7d",
+    "Biocoop": "#6aa63b", "Naturalia": "#5a9e3a", "Normal": "#e2001a", "HEMA": "#e2001a",
+    "H and M": "#e50010", "Chronodrive": "#e2001a", "Amazon": "#ff9900",
+  };
+  const BRAND_PALETTE = ["#2563eb", "#dc2626", "#16a34a", "#9333ea", "#ea580c", "#0891b2", "#ca8a04", "#db2777", "#4f46e5", "#0d9488", "#65a30d", "#e11d48"];
+  function brandColor(name) {
+    if (BRAND[name]) return BRAND[name];
+    let h = 0;
+    for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+    return BRAND_PALETTE[h % BRAND_PALETTE.length];
+  }
+  function contrastText(hex) {
+    const [r, g, b] = parseHex(hex);
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.62 ? "#111827" : "#ffffff";
+  }
+  function enseignesHtml(list) {
+    if (!list || !list.length) return "";
+    return `
+      <div class="enseignes">
+        <div class="enseignes__label">🏷️ Enseignes similaires <span class="enseignes__count">${list.length}</span></div>
+        <div class="enseignes__list">
+          ${list.map((n) => {
+            const c = brandColor(n);
+            return `<span class="brand" style="--bg:${c};--fg:${contrastText(c)}"><span class="brand__dot"></span>${escapeHtml(n)}</span>`;
+          }).join("")}
+        </div>
+      </div>`;
   }
 
   /* ------------------------------------------------------- Briques SVG */
@@ -563,6 +605,7 @@
             )
             .join("")}
         </div>
+        ${enseignesHtml(sub.enseignes)}
       </div>`;
   }
 

@@ -45,6 +45,10 @@ Tout le contenu métier est centralisé dans **`js/data.js`**. Pour ajouter/modi
 
 - **Un métier** : ajouter un objet dans `jobs` de la sous-zone concernée
   (champs : `title`, `aliases`, `description`, `examples`, `passerelles`).
+- **Les enseignes similaires** d'un secteur : champ `enseignes` (liste de noms)
+  sur la sous-zone. Les couleurs de marque sont approximées automatiquement
+  (surcharge possible dans `BRAND` de `js/app.js`). Placeholder en attendant de
+  vrais logos.
 - **Une passerelle** : ajouter l'`id` du métier cible dans le tableau `passerelles`.
   On peut pointer vers un métier de rayon ou un métier d'encadrement
   (`managementJobs`).

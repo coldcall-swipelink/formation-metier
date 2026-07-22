@@ -338,6 +338,53 @@ body {
 
 .job-list { display: flex; flex-direction: column; gap: 0.5rem; }
 
+/* Enseignes similaires (par secteur / rayon) */
+.enseignes {
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border);
+}
+.enseignes__label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+  margin-bottom: 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.enseignes__count {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0 0.4rem;
+  font-size: 0.68rem;
+  color: var(--text-soft);
+}
+.enseignes__list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 7px;
+  padding: 0.28rem 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.1;
+  box-shadow: 0 1px 2px rgba(15,23,42,0.12);
+}
+.brand__dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--fg);
+  opacity: 0.55;
+}
+
 .job-chip {
   display: flex;
   align-items: center;
