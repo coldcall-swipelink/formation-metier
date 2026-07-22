@@ -1,0 +1,58 @@
+# Les métiers de la grande distribution — Formation interactive
+
+Outil d'onboarding pour les nouveaux arrivants de notre société de recrutement
+en grande distribution. Objectif : comprendre les **métiers**, leurs **fonctions**,
+les **intitulés de poste** et les **métiers passerelles** (évolutions possibles).
+
+## Le concept
+
+1. **Vue du magasin (plan vu du haut)** — À la connexion, l'utilisateur voit un plan
+   du magasin avec tous les grands espaces (PGC, Frais traditionnel, Frais LS,
+   Fruits & Légumes, Espace culturel, Textile & Maison, Caisses…).
+2. **Zoom sur un espace** — En cliquant sur un espace, on le décompose en sous-espaces
+   (ex : PGC → Épicerie, Liquides, Bazar, DPH) et on affiche les métiers de chacun
+   (Responsable liquides, Responsable bazar…).
+3. **Fiche métier** — En cliquant sur un métier : une photo type du rayon, une
+   description avec des exemples concrets, les intitulés de poste équivalents, et les
+   **métiers passerelles** (ex : Responsable frais LS ↔ Responsable charcuterie LS).
+
+## Lancer le projet
+
+Aucune installation, aucun build. C'est du HTML/CSS/JS statique.
+
+```bash
+# Option simple : ouvrir directement index.html dans un navigateur.
+# Ou lancer un petit serveur local :
+python3 -m http.server 8000
+# puis ouvrir http://localhost:8000
+```
+
+## Structure des fichiers
+
+```
+index.html        Structure de la page (3 vues : plan, zone, fiche métier)
+css/styles.css    Mise en forme (plan du magasin, cartes, panneau fiche métier)
+js/data.js        ⭐ TOUT LE CONTENU (zones, sous-zones, métiers, passerelles)
+js/app.js         Logique de navigation et rendu
+```
+
+## Modifier le contenu
+
+Tout le contenu métier est centralisé dans **`js/data.js`**. Pour ajouter/modifier :
+
+- **Un métier** : ajouter un objet dans `jobs` de la sous-zone concernée
+  (champs : `title`, `aliases`, `description`, `examples`, `passerelles`).
+- **Une passerelle** : ajouter l'`id` du métier cible dans le tableau `passerelles`.
+  On peut pointer vers un métier de rayon ou un métier d'encadrement
+  (`managementJobs`).
+- **Le plan du magasin** : les zones sont positionnées via `grid-template-areas`
+  dans `css/styles.css` (chaque zone a un `area`).
+
+## Pistes d'évolution (à discuter)
+
+- Remplacer les placeholders emoji par de **vraies photos** de rayons
+  (champ `image` à ajouter dans `photo`).
+- Ajouter une **recherche** de métier / intitulé de poste.
+- Visualiser les passerelles sous forme de **schéma de carrière** (graphe).
+- Ajouter fiches **salaire / compétences / diplômes** par métier.
+- Système de connexion / suivi de progression de l'apprenant.

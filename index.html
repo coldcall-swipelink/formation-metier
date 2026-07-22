@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les métiers de la grande distribution — Formation</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- En-tête -->
+  <header class="app-header">
+    <div class="app-header__brand">
+      <span class="app-header__logo">🏬</span>
+      <div>
+        <h1 class="app-header__title">Les métiers de la grande distribution</h1>
+        <p class="app-header__subtitle">Explorez le magasin, cliquez sur un espace pour découvrir les métiers</p>
+      </div>
+    </div>
+    <nav class="breadcrumb" id="breadcrumb" aria-label="Fil d'ariane"></nav>
+  </header>
+
+  <!-- Zone principale -->
+  <main class="stage" id="stage">
+
+    <!-- Niveau 0 : plan du magasin -->
+    <section class="view view--map is-active" id="view-map" aria-label="Plan du magasin">
+      <div class="store-map" id="store-map"></div>
+      <p class="hint">👆 Cliquez sur un espace pour zoomer</p>
+    </section>
+
+    <!-- Niveau 1 : sous-espaces et métiers d'une zone -->
+    <section class="view view--zone" id="view-zone" aria-label="Détail d'un espace" hidden>
+      <button class="btn-back" id="btn-back-map">← Retour au plan du magasin</button>
+      <div class="zone-detail" id="zone-detail"></div>
+    </section>
+  </main>
+
+  <!-- Niveau 2 : panneau fiche métier -->
+  <aside class="job-panel" id="job-panel" aria-hidden="true">
+    <div class="job-panel__overlay" id="job-panel-overlay"></div>
+    <div class="job-panel__content" role="dialog" aria-modal="true" aria-labelledby="job-panel-title">
+      <button class="job-panel__close" id="job-panel-close" aria-label="Fermer">✕</button>
+      <div id="job-panel-body"></div>
+    </div>
+  </aside>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+/* =========================================================================
+   Formation — Les métiers de la grande distribution
+   Feuille de style principale
+   ========================================================================= */
+
+:root {
+  --bg: #0f172a;
+  --bg-soft: #1e293b;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-soft: #475569;
+  --text-invert: #f8fafc;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+  --shadow-lg: 0 20px 60px rgba(15, 23, 42, 0.35);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 20% -10%, #1e3a8a55, transparent),
+    radial-gradient(1000px 500px at 100% 0%, #7c3aed44, transparent),
+    var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------------------------------------------------------- Header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  flex-wrap: wrap;
+}
+
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.app-header__logo {
+  font-size: 2.4rem;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+}
+
+.app-header__title {
+  margin: 0;
+  font-size: 1.35rem;
+  color: var(--text-invert);
+  letter-spacing: -0.01em;
+}
+
+.app-header__subtitle {
+  margin: 0.15rem 0 0;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+/* ------------------------------------------------------------ Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  flex-wrap: wrap;
+}
+
+.breadcrumb button {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-invert);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: background 0.2s var(--ease);
+}
+.breadcrumb button:hover { background: rgba(255,255,255,0.18); }
+.breadcrumb span.sep { opacity: 0.5; }
+.breadcrumb span.current {
+  padding: 0.35rem 0.7rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ----------------------------------------------------------------- Stage */
+.stage {
+  flex: 1;
+  padding: 0 1.5rem 2rem;
+  position: relative;
+}
+
+.view { animation: fade-in 0.4s var(--ease); }
+.view[hidden] { display: none; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------- Store map */
+.store-map {
+  display: grid;
+  gap: 12px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  border-radius: 22px;
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 12px, transparent 12px 24px),
+    rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-lg);
+
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, minmax(90px, 1fr));
+  grid-template-areas:
+    "cult cult txt  txt  fl   fl"
+    "pgc  pgc  pgc  fls  fls  fl"
+    "pgc  pgc  pgc  trad trad trad"
+    "caisses caisses caisses caisses caisses caisses";
+}
+
+.zone-tile {
+  grid-area: var(--area);
+  position: relative;
+  border: none;
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  cursor: pointer;
+  color: #fff;
+  text-align: left;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 90px;
+  background: linear-gradient(150deg, var(--c1), var(--c2));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.12), 0 8px 20px rgba(0,0,0,0.25);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), filter 0.25s var(--ease);
+}
+
+.zone-tile:hover {
+  transform: translateY(-4px) scale(1.015);
+  filter: brightness(1.08);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25), 0 16px 32px rgba(0,0,0,0.35);
+}
+
+.zone-tile__icon {
+  font-size: 1.9rem;
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
+}
+
+.zone-tile__name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.zone-tile__sub {
+  font-size: 0.72rem;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+.zone-tile__count {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.hint {
+  text-align: center;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+/* --------------------------------------------------------- Bouton retour */
+.btn-back {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-invert);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+  transition: background 0.2s var(--ease);
+}
+.btn-back:hover { background: rgba(255,255,255,0.2); }
+
+/* ------------------------------------------------------- Détail d'une zone */
+.zone-detail { max-width: 1150px; margin: 0 auto; }
+
+.zone-detail__head {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: var(--radius);
+  color: #fff;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(150deg, var(--c1), var(--c2));
+  box-shadow: var(--shadow);
+}
+.zone-detail__head .icon { font-size: 2.8rem; }
+.zone-detail__head h2 { margin: 0; font-size: 1.5rem; }
+.zone-detail__head p { margin: 0.3rem 0 0; opacity: 0.9; font-size: 0.92rem; max-width: 70ch; }
+
+.subzones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
+}
+
+.subzone-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.2rem 1.2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  animation: fade-in 0.4s var(--ease) backwards;
+}
+
+.subzone-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+.subzone-card__head .icon { font-size: 1.5rem; }
+.subzone-card__head h3 { margin: 0; font-size: 1.05rem; color: var(--text); }
+.subzone-card__desc {
+  margin: 0 0 0.9rem;
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.job-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.job-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  text-align: left;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), transform 0.15s var(--ease), background 0.2s var(--ease);
+}
+.job-chip:hover {
+  border-color: #94a3b8;
+  transform: translateX(3px);
+  background: #fff;
+}
+.job-chip__icon {
+  width: 34px; height: 34px;
+  flex: none;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
+  background: linear-gradient(150deg, var(--c1), var(--c2));
+}
+.job-chip__title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.2; }
+.job-chip__hint { font-size: 0.72rem; color: var(--text-soft); }
+.job-chip__arrow { margin-left: auto; color: #94a3b8; font-size: 1.1rem; }
+
+/* ----------------------------------------------------- Panneau fiche métier */
+.job-panel { position: fixed; inset: 0; z-index: 50; pointer-events: none; }
+.job-panel[aria-hidden="false"] { pointer-events: auto; }
+
+.job-panel__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease);
+}
+.job-panel[aria-hidden="false"] .job-panel__overlay { opacity: 1; }
+
+.job-panel__content {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: min(560px, 100%);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.35s var(--ease);
+}
+.job-panel[aria-hidden="false"] .job-panel__content { transform: translateX(0); }
+
+.job-panel__close {
+  position: absolute;
+  top: 14px; right: 14px;
+  z-index: 2;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s var(--ease);
+}
+.job-panel__close:hover { transform: rotate(90deg); }
+
+/* --- Fiche métier : contenu --- */
+.job-photo {
+  height: 220px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(150deg, var(--c1), var(--c2));
+  position: relative;
+}
+.job-photo__emoji { font-size: 5rem; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.4)); }
+.job-photo__tag {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.job-body { padding: 1.4rem 1.6rem 2rem; }
+
+.job-body__zone {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--accent, #475569);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 0.6rem;
+}
+
+.job-body h2 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+
+.job-aliases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 1.2rem;
+}
+.job-aliases .alias {
+  font-size: 0.75rem;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  color: var(--text-soft);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.job-section { margin-top: 1.4rem; }
+.job-section h4 {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.job-section p { margin: 0; line-height: 1.55; color: var(--text); font-size: 0.95rem; }
+
+.job-examples { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.job-examples li {
+  position: relative;
+  padding: 0.6rem 0.8rem 0.6rem 2.1rem;
+  background: var(--surface-soft);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+.job-examples li::before {
+  content: "✅";
+  position: absolute;
+  left: 0.7rem;
+  top: 0.6rem;
+  font-size: 0.85rem;
+}
+
+.passerelles { display: flex; flex-direction: column; gap: 0.55rem; }
+.passerelle {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  text-align: left;
+  background: linear-gradient(135deg, #eef2ff, #faf5ff);
+  border: 1px solid #e0e7ff;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease), border-color 0.2s var(--ease);
+}
+.passerelle:hover { transform: translateX(3px); border-color: #a5b4fc; }
+.passerelle__icon {
+  width: 32px; height: 32px; flex: none;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: 1rem;
+  background: linear-gradient(150deg, var(--c1), var(--c2));
+}
+.passerelle__arrow { color: #6366f1; font-weight: 700; }
+.passerelle__title { font-size: 0.86rem; font-weight: 600; color: var(--text); }
+.passerelle__note { font-size: 0.72rem; color: var(--text-soft); }
+
+.job-section--empty p { color: var(--text-soft); font-style: italic; font-size: 0.88rem; }
+
+/* ------------------------------------------------------------- Responsive */
+@media (max-width: 720px) {
+  .store-map {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas:
+      "pgc  pgc"
+      "trad fls"
+      "fl   cult"
+      "txt  caisses";
+  }
+  .app-header__title { font-size: 1.1rem; }
+  .job-panel__content { width: 100%; }
+}
