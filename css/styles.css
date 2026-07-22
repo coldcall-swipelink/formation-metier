@@ -193,6 +193,74 @@ body {
 .zone-detail__head h2 { margin: 0; font-size: 1.5rem; }
 .zone-detail__head p { margin: 0.3rem 0 0; opacity: 0.9; font-size: 0.92rem; max-width: 70ch; }
 
+/* Badge "département" sur le plan SVG */
+.plan-dept { cursor: pointer; outline: none; }
+.plan-dept .hoverable { transition: filter 0.2s var(--ease); }
+.plan-dept:hover .hoverable { filter: brightness(1.15); }
+.plan-dept:hover { filter: drop-shadow(0 3px 6px rgba(15,23,42,0.35)); }
+.plan-dept:focus-visible .hoverable { stroke: #0f172a; stroke-width: 3; }
+
+/* Bandeau département (détail de zone) */
+.dept-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  text-align: left;
+  margin: -0.6rem 0 1.1rem;
+  padding: 0.7rem 1rem;
+  border-radius: var(--radius);
+  border: 1px dashed color-mix(in srgb, var(--dc) 55%, white);
+  background: color-mix(in srgb, var(--dc) 12%, white);
+  cursor: pointer;
+  transition: background 0.2s var(--ease);
+}
+.dept-banner:hover { background: color-mix(in srgb, var(--dc) 20%, white); }
+.dept-banner__icon { font-size: 1.4rem; }
+.dept-banner__text { font-size: 0.9rem; color: var(--text); }
+.dept-banner__cta {
+  margin-left: auto;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dc);
+  white-space: nowrap;
+}
+
+/* Carte "responsable de secteur" (métier de la grande catégorie) */
+.manager-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 1.4rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  box-shadow: var(--shadow);
+  transition: transform 0.15s var(--ease), filter 0.2s var(--ease);
+}
+.manager-card:hover { transform: translateY(-2px); filter: brightness(1.06); }
+.manager-card__icon {
+  width: 44px; height: 44px; flex: none;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 1.5rem;
+  background: rgba(255,255,255,0.18);
+}
+.manager-card__text { display: flex; flex-direction: column; }
+.manager-card__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.85;
+}
+.manager-card__title { font-size: 1.02rem; font-weight: 700; line-height: 1.2; }
+.manager-card__arrow { margin-left: auto; font-size: 1.5rem; opacity: 0.8; }
+
 .subzones {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

@@ -33,6 +33,27 @@
     JOB_INDEX[job.id] = job;
   });
 
+  // Départements (grandes catégories) + contexte des managers
+  const DEPT_INDEX = STORE.departments || {};              // deptId -> department
+  const DEPT_BY_MANAGER = {};                              // managerJobId -> department
+  Object.values(DEPT_INDEX).forEach((d) => { DEPT_BY_MANAGER[d.manager] = d; });
+
+  // Rattache chaque manager de secteur à sa zone (pour l'affichage de sa fiche)
+  STORE.zones.forEach((zone) => {
+    if (zone.manager && JOB_INDEX[zone.manager]) {
+      JOB_CONTEXT[zone.manager] = { zone, subZone: null };
+    }
+  });
+
+  // Note affichée pour une passerelle (contexte du métier cible)
+  function jobNote(jobId) {
+    const ctx = JOB_CONTEXT[jobId];
+    if (ctx && ctx.subZone) return `${ctx.zone.name} · ${ctx.subZone.name}`;
+    if (ctx && ctx.zone) return `Encadrement · ${ctx.zone.name}`;
+    if (DEPT_BY_MANAGER[jobId]) return `Département ${DEPT_BY_MANAGER[jobId].name}`;
+    return "Évolution / encadrement";
+  }
+
   /* ------------------------------------------------------------------- DOM */
   const el = {
     storeMap: document.getElementById("store-map"),
@@ -64,7 +85,10 @@
    */
   const PLAN = {
     vb: [0, 0, 1200, 820],
+    // Entrée du magasin (rendue à part, en façade)
+    entrance: { x: 1032, y: 726, w: 132, h: 80 },
     zones: [
+      // Fond de magasin : comptoirs frais traditionnel (pleine largeur)
       {
         id: "frais-trad",
         x: 36, y: 34, w: 1128, h: 140,
@@ -75,22 +99,24 @@
           { sub: "coupe",       x: 874, y: 74, w: 274, h: 84, pattern: "counter" },
         ],
       },
+      // Colonne GAUCHE : Frais LS (haut) + Fruits & Légumes (bas)
       {
-        id: "culturel",
-        x: 36, y: 194, w: 250, h: 230,
+        id: "frais-ls",
+        x: 36, y: 194, w: 250, h: 256,
         cells: [
-          { sub: "librairie",  x: 52, y: 234, w: 218, h: 78, pattern: "racks" },
-          { sub: "multimedia", x: 52, y: 330, w: 218, h: 78, pattern: "racks" },
+          { sub: "cremerie-ls",    x: 52, y: 234, w: 218, h: 58, pattern: "fridge" },
+          { sub: "charcuterie-ls", x: 52, y: 306, w: 218, h: 58, pattern: "fridge" },
+          { sub: "surgeles",       x: 52, y: 378, w: 218, h: 58, pattern: "fridge" },
         ],
       },
       {
-        id: "textile-maison",
-        x: 36, y: 444, w: 250, h: 262,
+        id: "fl",
+        x: 36, y: 470, w: 250, h: 236,
         cells: [
-          { sub: "textile", x: 52, y: 484, w: 218, h: 96, pattern: "racks" },
-          { sub: "maison",  x: 52, y: 596, w: 218, h: 94, pattern: "racks" },
+          { sub: "fl-sub", x: 52, y: 510, w: 218, h: 180, pattern: "bins" },
         ],
       },
+      // Centre : PGC (4 rayons)
       {
         id: "pgc",
         x: 306, y: 194, w: 560, h: 512,
@@ -101,31 +127,38 @@
           { sub: "bazar",    x: 594, y: 470, w: 256, h: 220, pattern: "gondola" },
         ],
       },
+      // Colonne DROITE : Espace Culturel (haut) + Textile & Maison (bas)
       {
-        id: "frais-ls",
-        x: 886, y: 194, w: 278, h: 250,
+        id: "culturel",
+        x: 886, y: 194, w: 278, h: 256,
         cells: [
-          { sub: "cremerie-ls",    x: 902, y: 234, w: 246, h: 60, pattern: "fridge" },
-          { sub: "charcuterie-ls", x: 902, y: 306, w: 246, h: 60, pattern: "fridge" },
-          { sub: "surgeles",       x: 902, y: 378, w: 246, h: 58, pattern: "fridge" },
+          { sub: "librairie",  x: 902, y: 234, w: 246, h: 96, pattern: "racks" },
+          { sub: "multimedia", x: 902, y: 346, w: 246, h: 96, pattern: "racks" },
         ],
       },
       {
-        id: "fl",
-        x: 886, y: 464, w: 278, h: 242,
+        id: "textile-maison",
+        x: 886, y: 470, w: 278, h: 236,
         cells: [
-          { sub: "fl-sub", x: 902, y: 508, w: 246, h: 182, pattern: "bins" },
+          { sub: "textile", x: 902, y: 510, w: 246, h: 92, pattern: "racks" },
+          { sub: "maison",  x: 902, y: 614, w: 246, h: 76, pattern: "racks" },
         ],
       },
+      // Façade : Caisses & Accueil (gauche) — Drive détaché (droite) — Entrée
       {
         id: "caisses",
-        x: 36, y: 726, w: 1128, h: 80,
+        x: 36, y: 726, w: 700, h: 80,
         cells: [
-          { sub: "ligne-caisses", x: 52,  y: 740, w: 560, h: 52, pattern: "checkout" },
-          { sub: "accueil",       x: 628, y: 740, w: 200, h: 52, pattern: "plain" },
-          { sub: "drive",         x: 844, y: 740, w: 170, h: 52, pattern: "plain" },
+          { sub: "ligne-caisses", x: 52,  y: 740, w: 432, h: 52, pattern: "checkout" },
+          { sub: "accueil",       x: 500, y: 740, w: 220, h: 52, pattern: "plain" },
         ],
-        entrance: { x: 1036, y: 726, w: 128, h: 80 },
+      },
+      {
+        id: "drive",
+        x: 760, y: 726, w: 248, h: 80,
+        cells: [
+          { sub: "drive-prep", x: 776, y: 740, w: 216, h: 52, pattern: "drive" },
+        ],
       },
     ],
   };
@@ -157,6 +190,11 @@
   /* ------------------------------------------------------- Briques SVG */
   function rr(x, y, w, h, rx, attrs) {
     return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" ${attrs}/>`;
+  }
+  // Largeur estimée d'une pastille (icône + texte)
+  function pillWidth(text, icon, fs) {
+    const iconW = icon ? 21 : 0;
+    return 12 + iconW + text.length * (fs * 0.62) + 14;
   }
   // Étiquette (pastille) : icône + texte. Largeur estimée ; si opts.maxW est
   // fourni, la taille de police est réduite pour que le texte tienne.
@@ -257,6 +295,18 @@
         }
         return g(s);
       }
+      case "drive": {
+        // Drive : places de retrait (voitures)
+        const slots = 3;
+        const step = (w - 20) / slots;
+        let s = "";
+        for (let i = 0; i < slots; i++) {
+          const sx = x + 12 + i * step;
+          s += rr(sx, y + h - 26, step - 10, 18, 5, `fill="${fill}" stroke="${stroke}" stroke-width="1.3"`);
+          s += `<text x="${sx + (step - 10) / 2}" y="${y + h - 12}" text-anchor="middle" font-size="12">🚗</text>`;
+        }
+        return g(s);
+      }
       default:
         return "";
     }
@@ -294,22 +344,37 @@
     s += `</g>`;
 
     // Titre de la zone (pastille posée sur le bord haut)
-    s += pill(zplan.x + 14, zplan.y - 13, zone.name.toUpperCase(), zone.icon, color, { fs: 13, h: 28 });
+    const title = zone.name.toUpperCase();
+    s += pill(zplan.x + 14, zplan.y - 13, title, zone.icon, color, { fs: 13, h: 28 });
+
+    // Badge "département" (grande catégorie) si la zone en fait partie
+    if (zone.department && DEPT_INDEX[zone.department]) {
+      const dep = DEPT_INDEX[zone.department];
+      const bx = zplan.x + 14 + pillWidth(title, zone.icon, 13) + 16;
+      const by = zplan.y - 13 + 14;
+      s += `<g class="plan-dept" data-dept="${dep.id}" tabindex="0" role="button" aria-label="Département ${escapeHtml(dep.name)}">`;
+      s += `<title>Département ${escapeHtml(dep.name)} — cliquez pour voir</title>`;
+      s += `<circle class="hoverable" cx="${bx}" cy="${by}" r="14" fill="${dep.color}" stroke="#fff" stroke-width="2"/>`;
+      s += `<text x="${bx}" y="${by + 5}" text-anchor="middle" font-size="15" pointer-events="none">${dep.icon}</text>`;
+      s += `</g>`;
+    }
 
     // Cellules (rayons)
     zplan.cells.forEach((c) => { s += renderCell(c, zone); });
 
-    // Entrée éventuelle (zone caisses)
-    if (zplan.entrance) {
-      const e = zplan.entrance;
-      s += `<g pointer-events="none">`;
-      s += rr(e.x, e.y, e.w, e.h, 12, `fill="#dcfce7" stroke="#22c55e" stroke-width="2" stroke-dasharray="6 5"`);
-      s += `<text x="${e.x + e.w / 2}" y="${e.y + 30}" text-anchor="middle" font-size="22">🚪</text>`;
-      s += `<text x="${e.x + e.w / 2}" y="${e.y + 52}" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">ENTRÉE</text>`;
-      s += `<text x="${e.x + e.w / 2}" y="${e.y + 70}" text-anchor="middle" font-size="16" fill="#16a34a">▲</text>`;
-      s += `</g>`;
-    }
+    s += `</g>`;
+    return s;
+  }
 
+  // Entrée du magasin (façade)
+  function renderEntrance() {
+    const e = PLAN.entrance;
+    if (!e) return "";
+    let s = `<g pointer-events="none">`;
+    s += rr(e.x, e.y, e.w, e.h, 12, `fill="#dcfce7" stroke="#22c55e" stroke-width="2" stroke-dasharray="6 5"`);
+    s += `<text x="${e.x + e.w / 2}" y="${e.y + 32}" text-anchor="middle" font-size="22">🚪</text>`;
+    s += `<text x="${e.x + e.w / 2}" y="${e.y + 54}" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">ENTRÉE</text>`;
+    s += `<text x="${e.x + e.w / 2}" y="${e.y + 72}" text-anchor="middle" font-size="16" fill="#16a34a">▲</text>`;
     s += `</g>`;
     return s;
   }
@@ -326,11 +391,23 @@
 
     // Zones
     PLAN.zones.forEach((z) => { svg += renderZone(z); });
+    // Entrée
+    svg += renderEntrance();
 
     svg += `</svg>`;
     el.storeMap.innerHTML = svg;
 
-    // Interactions
+    // Interactions : badges "département" (avant les cellules pour priorité)
+    el.storeMap.querySelectorAll(".plan-dept").forEach((g) => {
+      const deptId = g.getAttribute("data-dept");
+      const go = (e) => { e.stopPropagation(); openDepartment(deptId); };
+      g.addEventListener("click", go);
+      g.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(e); }
+      });
+    });
+
+    // Interactions : zones / rayons
     el.storeMap.querySelectorAll(".plan-cell").forEach((g) => {
       const zoneId = g.getAttribute("data-zone");
       const subId = g.getAttribute("data-sub");
@@ -350,6 +427,29 @@
     if (!zone) return;
     currentZone = zone;
 
+    // Bandeau département (grande catégorie) si applicable
+    const dep = zone.department ? DEPT_INDEX[zone.department] : null;
+    const depBanner = dep
+      ? `<button class="dept-banner" data-dept="${dep.id}" style="--dc:${dep.color}">
+           <span class="dept-banner__icon">${dep.icon}</span>
+           <span class="dept-banner__text">Fait partie du département <strong>${escapeHtml(dep.name)}</strong></span>
+           <span class="dept-banner__cta">Voir le département →</span>
+         </button>`
+      : "";
+
+    // Carte du responsable de secteur (métier de la grande catégorie)
+    const mgr = zone.manager ? JOB_INDEX[zone.manager] : null;
+    const mgrCard = mgr
+      ? `<button class="manager-card" data-job="${mgr.id}" style="--c1:${zone.color};--c2:${shade(zone.color, -28)}">
+           <span class="manager-card__icon">${mgr.photo.icon}</span>
+           <span class="manager-card__text">
+             <span class="manager-card__label">Responsable du secteur</span>
+             <span class="manager-card__title">${escapeHtml(mgr.title)}</span>
+           </span>
+           <span class="manager-card__arrow">›</span>
+         </button>`
+      : "";
+
     el.zoneDetail.innerHTML = `
       <div class="zone-detail__head" style="--c1:${zone.color};--c2:${shade(zone.color, -28)}">
         <span class="icon">${zone.icon}</span>
@@ -358,12 +458,17 @@
           <p>${escapeHtml(zone.description)}</p>
         </div>
       </div>
+      ${depBanner}
+      ${mgrCard}
       <div class="subzones">
         ${zone.subZones.map((sub, i) => renderSubzone(zone, sub, i)).join("")}
       </div>`;
 
     el.zoneDetail.querySelectorAll("[data-job]").forEach((btn) => {
       btn.addEventListener("click", () => openJob(btn.getAttribute("data-job")));
+    });
+    el.zoneDetail.querySelectorAll("[data-dept]").forEach((btn) => {
+      btn.addEventListener("click", () => openDepartment(btn.getAttribute("data-dept")));
     });
 
     switchView("zone");
@@ -427,8 +532,7 @@
             const p = JOB_INDEX[pid];
             if (!p) return "";
             const [pg1, pg2] = p.photo.gradient;
-            const pctx = JOB_CONTEXT[pid];
-            const note = pctx ? `${pctx.zone.name} · ${pctx.subZone.name}` : "Évolution / encadrement";
+            const note = jobNote(pid);
             return `
               <button class="passerelle" data-job="${p.id}">
                 <span class="passerelle__icon" style="--c1:${pg1};--c2:${pg2}">${p.photo.icon}</span>
@@ -472,6 +576,70 @@
     el.jobPanelBody.querySelectorAll("[data-job]").forEach((btn) => {
       btn.addEventListener("click", () => openJob(btn.getAttribute("data-job")));
     });
+
+    openPanel();
+    el.jobPanelBody.parentElement.scrollTop = 0;
+  }
+
+  /* ====================================================================== */
+  /*  Département (grande catégorie) — fiche dans le panneau                */
+  /* ====================================================================== */
+  function openDepartment(deptId) {
+    const dep = DEPT_INDEX[deptId];
+    if (!dep) return;
+    const mgr = dep.manager ? JOB_INDEX[dep.manager] : null;
+    const [g1, g2] = mgr ? mgr.photo.gradient : [dep.color, shade(dep.color, -28)];
+
+    const zonesHtml = dep.zones
+      .map((zid) => {
+        const z = ZONE_INDEX[zid];
+        if (!z) return "";
+        return `
+          <button class="passerelle" data-zone="${z.id}">
+            <span class="passerelle__icon" style="--c1:${z.color};--c2:${shade(z.color, -28)}">${z.icon}</span>
+            <span>
+              <span class="passerelle__title">${escapeHtml(z.name)}</span><br>
+              <span class="passerelle__note">${escapeHtml(z.subtitle || "")}</span>
+            </span>
+            <span class="passerelle__arrow" style="margin-left:auto">→</span>
+          </button>`;
+      })
+      .join("");
+
+    el.jobPanelBody.innerHTML = `
+      <div class="job-photo" style="--c1:${g1};--c2:${g2}">
+        <span class="job-photo__emoji">${dep.icon}</span>
+        <span class="job-photo__tag">Grande catégorie · département</span>
+      </div>
+      <div class="job-body">
+        <span class="job-body__zone" style="--accent:${dep.color}">Département</span>
+        <h2 id="job-panel-title">${escapeHtml(dep.name)}</h2>
+        <div class="job-section">
+          <h4>📝 Le département</h4>
+          <p>${escapeHtml(dep.description)}</p>
+        </div>
+        ${mgr ? `
+        <div class="job-section">
+          <h4>🧑‍💼 À la tête du département</h4>
+          <button class="manager-card" data-job="${mgr.id}" style="--c1:${dep.color};--c2:${shade(dep.color, -28)}">
+            <span class="manager-card__icon">${mgr.photo.icon}</span>
+            <span class="manager-card__text">
+              <span class="manager-card__label">Le responsable</span>
+              <span class="manager-card__title">${escapeHtml(mgr.title)}</span>
+            </span>
+            <span class="manager-card__arrow">›</span>
+          </button>
+        </div>` : ""}
+        <div class="job-section">
+          <h4>🗂️ Les secteurs regroupés</h4>
+          <div class="passerelles">${zonesHtml}</div>
+        </div>
+      </div>`;
+
+    el.jobPanelBody.querySelectorAll("[data-job]").forEach((b) =>
+      b.addEventListener("click", () => openJob(b.getAttribute("data-job"))));
+    el.jobPanelBody.querySelectorAll("[data-zone]").forEach((b) =>
+      b.addEventListener("click", () => { closePanel(); openZone(b.getAttribute("data-zone")); }));
 
     openPanel();
     el.jobPanelBody.parentElement.scrollTop = 0;

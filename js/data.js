@@ -30,6 +30,7 @@ const STORE = {
       subtitle: "Produits de Grande Consommation",
       icon: "🛒",
       color: "#2563eb",
+      manager: "mgr-pgc",
       description:
         "Le cœur du libre-service non périssable : épicerie, liquides, hygiène-droguerie et bazar léger. Les plus gros volumes du magasin.",
       subZones: [
@@ -51,7 +52,7 @@ const STORE = {
                 "Négocie et installe une tête de gondole promotionnelle pour une opération nationale.",
                 "Analyse le chiffre d'affaires du rayon et ajuste l'assortiment saisonnier (ex : bûches à Noël).",
               ],
-              passerelles: ["resp-liquides", "resp-dph", "manager-secteur-pgc"],
+              passerelles: ["resp-liquides", "resp-dph", "mgr-pgc"],
             },
             {
               id: "els-epicerie",
@@ -87,7 +88,7 @@ const STORE = {
                 "Gère la logistique lourde des packs d'eau (gerbage, sécurité).",
                 "Conseille un client sur un accord mets-vin.",
               ],
-              passerelles: ["resp-epicerie", "resp-dph", "manager-secteur-pgc"],
+              passerelles: ["resp-epicerie", "resp-dph", "mgr-pgc"],
             },
           ],
         },
@@ -109,7 +110,7 @@ const STORE = {
                 "Gère les linéaires beauté avec de nombreuses nouveautés fournisseurs.",
                 "Surveille la démarque (produits à fort risque de vol : rasoirs, parfums).",
               ],
-              passerelles: ["resp-epicerie", "resp-liquides", "manager-secteur-pgc"],
+              passerelles: ["resp-epicerie", "resp-liquides", "mgr-pgc"],
             },
           ],
         },
@@ -131,7 +132,7 @@ const STORE = {
                 "Implante le rayon jouets de fin d'année plusieurs semaines à l'avance.",
                 "Écoule les stocks saisonniers via des soldes après les fêtes.",
               ],
-              passerelles: ["resp-textile", "resp-maison", "manager-secteur-pgc"],
+              passerelles: ["resp-textile", "resp-maison", "mgr-pgc"],
             },
           ],
         },
@@ -146,6 +147,8 @@ const STORE = {
       subtitle: "Les métiers de bouche",
       icon: "🥩",
       color: "#dc2626",
+      manager: "mgr-frais-trad",
+      department: "frais",
       description:
         "Le « marché » du magasin : boucherie, poissonnerie, boulangerie-pâtisserie, fromage et charcuterie à la coupe. Des métiers avec vrai savoir-faire artisanal et vente-conseil.",
       subZones: [
@@ -181,7 +184,7 @@ const STORE = {
                 "Planifie l'équipe et forme un apprenti.",
                 "Garantit la traçabilité et les contrôles sanitaires.",
               ],
-              passerelles: ["manager-secteur-frais", "chef-boucher-ls"],
+              passerelles: ["mgr-frais-trad", "chef-boucher-ls"],
             },
           ],
         },
@@ -203,7 +206,7 @@ const STORE = {
                 "Filète un poisson à la demande du client.",
                 "Gère les arrivages selon la pêche du jour et la saison.",
               ],
-              passerelles: ["manager-secteur-frais", "resp-fl"],
+              passerelles: ["mgr-frais-trad", "resp-fl"],
             },
           ],
         },
@@ -225,20 +228,20 @@ const STORE = {
                 "Fabrique les pâtisseries et gâteaux de commande (anniversaires).",
                 "Gère les stocks de matières premières (farine, beurre).",
               ],
-              passerelles: ["manager-secteur-frais", "resp-traiteur-ls"],
+              passerelles: ["mgr-frais-trad", "resp-traiteur-ls"],
             },
           ],
         },
         {
           id: "coupe",
-          name: "Fromage / Charcuterie coupe",
+          name: "Charcuterie Traiteur Fromage",
           icon: "🧀",
-          description: "Crèmerie et charcuterie à la coupe, traiteur traditionnel.",
+          description: "Charcuterie, traiteur et fromage à la coupe (stand traditionnel).",
           jobs: [
             {
               id: "fromager",
-              title: "Fromager / Vendeur coupe",
-              aliases: ["Vendeur crèmerie coupe", "Charcutier-traiteur", "Responsable coupe"],
+              title: "Charcutier-traiteur / Fromager (coupe)",
+              aliases: ["Vendeur charcuterie-traiteur-fromage", "Vendeur coupe", "Responsable Charcuterie Traiteur Fromage"],
               photo: { icon: "🧀", gradient: ["#eab308", "#713f12"] },
               description:
                 "Vente à la coupe de fromages et charcuteries, conseil client, découpe, emballage et mise en valeur du stand traditionnel.",
@@ -247,7 +250,7 @@ const STORE = {
                 "Découpe le jambon à la demande et gère la rotation.",
                 "Propose une dégustation pour faire découvrir un produit.",
               ],
-              passerelles: ["resp-charcuterie-ls", "manager-secteur-frais"],
+              passerelles: ["resp-charcuterie-ls", "mgr-frais-trad"],
             },
           ],
         },
@@ -262,6 +265,8 @@ const STORE = {
       subtitle: "Frais LS",
       icon: "🧀",
       color: "#0891b2",
+      manager: "mgr-frais-ls",
+      department: "frais",
       description:
         "Tout le frais emballé en libre-service : produits laitiers, charcuterie LS, traiteur LS et surgelés. Forte contrainte de dates courtes et de chaîne du froid.",
       subZones: [
@@ -284,7 +289,7 @@ const STORE = {
                 "Réimplante le linéaire lors d'un changement d'assortiment laitier.",
               ],
               // Exemple explicite de passerelle donné par l'utilisateur : Frais trad -> Frais LS
-              passerelles: ["resp-charcuterie-ls", "resp-surgeles", "manager-secteur-frais"],
+              passerelles: ["resp-charcuterie-ls", "resp-surgeles", "mgr-frais-ls"],
             },
           ],
         },
@@ -306,7 +311,7 @@ const STORE = {
                 "Gère les nombreuses nouveautés fournisseurs en charcuterie.",
                 "Coordonne les promotions traiteur pour les fêtes.",
               ],
-              passerelles: ["resp-frais-ls", "fromager", "manager-secteur-frais"],
+              passerelles: ["resp-frais-ls", "fromager", "mgr-frais-ls"],
             },
           ],
         },
@@ -328,7 +333,7 @@ const STORE = {
                 "Développe le rayon glaces à l'approche de l'été.",
                 "Organise le rangement rapide à la réception pour ne pas rompre le froid.",
               ],
-              passerelles: ["resp-frais-ls", "manager-secteur-frais"],
+              passerelles: ["resp-frais-ls", "mgr-frais-ls"],
             },
           ],
         },
@@ -343,6 +348,8 @@ const STORE = {
       subtitle: "Le marché frais",
       icon: "🍎",
       color: "#16a34a",
+      manager: "mgr-fl",
+      department: "frais",
       description:
         "Souvent le premier rayon à l'entrée : c'est la vitrine fraîcheur du magasin. Gestion très fine des arrivages, de la casse et du théâtralisation.",
       subZones: [
@@ -364,7 +371,7 @@ const STORE = {
                 "Théâtralise un étal de saison (fraises au printemps, potirons à l'automne).",
                 "Gère la casse en dégradant les prix des produits mûrs.",
               ],
-              passerelles: ["poissonnier", "manager-secteur-frais", "resp-epicerie"],
+              passerelles: ["poissonnier", "mgr-fl", "resp-epicerie"],
             },
             {
               id: "els-fl",
@@ -393,6 +400,7 @@ const STORE = {
       subtitle: "Culture & Multimédia",
       icon: "📚",
       color: "#9333ea",
+      manager: "mgr-culturel",
       description:
         "Livres, presse, jeux vidéo, high-tech, son et image, billetterie. Un univers où le conseil et la connaissance produit font la différence.",
       subZones: [
@@ -451,6 +459,7 @@ const STORE = {
       subtitle: "Non-alimentaire lourd",
       icon: "👕",
       color: "#ca8a04",
+      manager: "mgr-textile",
       description:
         "Textile (prêt-à-porter, chaussures), maison, électroménager et bazar lourd. Univers de la mode, du merchandising et de l'équipement du foyer.",
       subZones: [
@@ -505,12 +514,13 @@ const STORE = {
     {
       id: "caisses",
       area: "caisses",
-      name: "Caisses, Accueil & Drive",
+      name: "Caisses & Accueil",
       subtitle: "Relation client & flux",
       icon: "🧾",
       color: "#475569",
+      manager: "mgr-caisse",
       description:
-        "La ligne de caisses, l'accueil et le Drive : le dernier (et souvent premier) contact avec le client. Métiers de flux, de service et de relation client.",
+        "La ligne de caisses et l'accueil : le dernier (et souvent premier) contact avec le client. Métiers de flux, de service et de relation client.",
       subZones: [
         {
           id: "ligne-caisses",
@@ -544,7 +554,7 @@ const STORE = {
                 "Gère les écarts de caisse et les procédures de sécurité (fonds).",
                 "Forme les nouveaux hôtes de caisse.",
               ],
-              passerelles: ["charge-accueil", "resp-drive", "manager-secteur-caisse"],
+              passerelles: ["charge-accueil", "resp-drive", "mgr-caisse"],
             },
           ],
         },
@@ -570,11 +580,26 @@ const STORE = {
             },
           ],
         },
+      ],
+    },
+
+    /* ------------------------------------------------------------------ */
+    {
+      id: "drive",
+      area: "drive",
+      name: "Drive",
+      subtitle: "E-commerce & préparation de commandes",
+      icon: "🚗",
+      color: "#0284c7",
+      manager: "mgr-drive",
+      description:
+        "Le Drive : préparation des commandes passées en ligne et remise au client sans qu'il entre en magasin. Une activité e-commerce à part entière, souvent détachée du reste du point de vente.",
+      subZones: [
         {
-          id: "drive",
-          name: "Drive",
+          id: "drive-prep",
+          name: "Préparation & retrait",
           icon: "🚗",
-          description: "Préparation et remise des commandes en ligne.",
+          description: "Picking des commandes, gestion des créneaux et remise au client au point de retrait.",
           jobs: [
             {
               id: "resp-drive",
@@ -588,7 +613,7 @@ const STORE = {
                 "Suit le taux de service et gère les ruptures/substitutions.",
                 "Optimise le picking pour réduire le temps de préparation.",
               ],
-              passerelles: ["resp-caisse", "charge-accueil", "manager-secteur-caisse"],
+              passerelles: ["resp-caisse", "charge-accueil", "mgr-caisse"],
             },
             {
               id: "prepa-drive",
@@ -615,47 +640,137 @@ const STORE = {
    * Ils ne sont pas rattachés à un rayon précis mais chapeautent plusieurs secteurs.
    */
   managementJobs: {
-    "manager-secteur-pgc": {
-      id: "manager-secteur-pgc",
-      title: "Manager de secteur PGC / Marchandises générales",
-      aliases: ["Chef de secteur PGC", "Manager univers épicerie-liquides-DPH-bazar"],
-      photo: { icon: "📊", gradient: ["#1d4ed8", "#1e3a8a"] },
+    /*
+     * Managers de secteur = les métiers "chapeau" de chaque grande catégorie
+     * (Responsable / Manager de secteur). Ils encadrent plusieurs responsables
+     * de rayon et sont affichés en tête de chaque espace.
+     */
+    "mgr-pgc": {
+      id: "mgr-pgc",
+      title: "Manager de secteur PGC",
+      aliases: ["Responsable PGC", "Chef de secteur PGC", "Manager marchandises générales", "Manager univers épicerie-liquides-DPH-bazar"],
+      photo: { icon: "🧑‍💼", gradient: ["#1d4ed8", "#1e3a8a"] },
       description:
-        "Encadre plusieurs responsables de rayon PGC. Pilote le chiffre d'affaires, les marges et l'équipe d'encadrement du secteur.",
+        "Encadre l'ensemble des responsables de rayon PGC (épicerie, liquides, DPH, bazar). Pilote le chiffre d'affaires, les marges et l'équipe d'encadrement du plus gros secteur en volume.",
       examples: [
         "Fixe les objectifs de CA et de marge à ses chefs de rayon.",
         "Arbitre les priorités d'implantation entre plusieurs rayons.",
         "Accompagne la montée en compétence de ses responsables.",
       ],
-      passerelles: ["directeur-magasin"],
+      passerelles: ["mgr-frais-ls", "mgr-textile", "directeur-magasin"],
     },
-    "manager-secteur-frais": {
-      id: "manager-secteur-frais",
-      title: "Manager de secteur Frais",
-      aliases: ["Chef de secteur frais", "Manager univers frais (trad + LS)"],
-      photo: { icon: "📊", gradient: ["#0e7490", "#155e75"] },
+    // Chef de département FRAIS : regroupe frais trad + frais LS + fruits & légumes
+    "mgr-frais": {
+      id: "mgr-frais",
+      title: "Chef de département Frais",
+      aliases: ["Manager de département Frais", "Responsable Frais", "Directeur du frais"],
+      photo: { icon: "❄️", gradient: ["#0891b2", "#0c4a6e"] },
       description:
-        "Chapeaute le frais traditionnel et/ou libre-service. Fort enjeu d'hygiène, de fraîcheur et de gestion de la casse.",
+        "Chapeaute l'ensemble du frais du magasin : le frais traditionnel (métiers de bouche), le frais libre-service et les fruits & légumes. Encadre les managers de secteur de ces trois univers. Poste clé, très exposé sur l'hygiène, la fraîcheur et la casse.",
       examples: [
-        "Coordonne boucherie, poissonnerie et frais LS sur les opérations.",
-        "Garantit les normes d'hygiène (HACCP) sur tout le secteur.",
-        "Pilote la démarque du frais.",
+        "Coordonne les trois secteurs frais sur les opérations et la saisonnalité.",
+        "Garantit la politique d'hygiène (HACCP) et de fraîcheur sur tout le département.",
+        "Pilote la marge et la démarque globale du frais, et manage les 3 managers de secteur.",
       ],
       passerelles: ["directeur-magasin"],
     },
-    "manager-secteur-caisse": {
-      id: "manager-secteur-caisse",
-      title: "Manager de secteur Caisse / Relation client",
-      aliases: ["Chef de secteur caisse & accueil", "Responsable relation client"],
-      photo: { icon: "📊", gradient: ["#475569", "#1e293b"] },
+    "mgr-frais-trad": {
+      id: "mgr-frais-trad",
+      title: "Manager de secteur Frais Traditionnel",
+      aliases: ["Responsable Frais Traditionnel", "Responsable Frais Trad", "Chef de secteur marché", "Manager métiers de bouche"],
+      photo: { icon: "🧑‍💼", gradient: ["#dc2626", "#7f1d1d"] },
       description:
-        "Pilote l'ensemble du parcours client : caisses, accueil, services et Drive. Enjeu majeur de satisfaction client et de gestion des flux.",
+        "Chapeaute les métiers de bouche : boucherie, poissonnerie, boulangerie et charcuterie-traiteur-fromage. Fort enjeu de savoir-faire artisanal, d'hygiène (HACCP) et de gestion de la casse. Rattaché au chef de département Frais.",
       examples: [
-        "Optimise l'organisation des caisses et du Drive sur la journée.",
+        "Coordonne boucherie, poissonnerie et boulangerie sur les opérations.",
+        "Garantit les normes d'hygiène et la traçabilité sur tout le secteur.",
+        "Pilote la marge et la démarque du frais traditionnel.",
+      ],
+      passerelles: ["mgr-frais", "directeur-magasin"],
+    },
+    "mgr-frais-ls": {
+      id: "mgr-frais-ls",
+      title: "Manager de secteur Frais Libre-Service",
+      aliases: ["Responsable Frais LS", "Chef de secteur frais LS", "Manager univers frais libre-service"],
+      photo: { icon: "🧑‍💼", gradient: ["#0891b2", "#155e75"] },
+      description:
+        "Pilote l'ensemble du frais emballé : crèmerie LS, charcuterie/traiteur LS et surgelés. Enjeu majeur de dates courtes, de chaîne du froid et de gestion des commandes au plus juste.",
+      examples: [
+        "Coordonne les commandes pour limiter la casse sur tout le secteur.",
+        "Garantit la chaîne du froid et gère les pannes des meubles froids.",
+        "Manage les responsables crèmerie, charcuterie LS et surgelés.",
+      ],
+      passerelles: ["mgr-frais", "directeur-magasin"],
+    },
+    "mgr-fl": {
+      id: "mgr-fl",
+      title: "Manager de secteur Fruits & Légumes",
+      aliases: ["Responsable Fruits & Légumes", "Chef de secteur marché F&L", "Manager primeur"],
+      photo: { icon: "🧑‍💼", gradient: ["#16a34a", "#14532d"] },
+      description:
+        "Chapeaute le rayon fruits & légumes (souvent rattaché au secteur frais). Enjeu de fraîcheur, de casse et de théâtralisation de la vitrine du magasin.",
+      examples: [
+        "Pilote la casse et la marge d'un rayon très fragile.",
+        "Coordonne les arrivages quotidiens et la saisonnalité.",
+        "Anime l'équipe pour tenir un étal impeccable toute la journée.",
+      ],
+      passerelles: ["mgr-frais", "directeur-magasin"],
+    },
+    "mgr-culturel": {
+      id: "mgr-culturel",
+      title: "Manager de secteur Culture & Loisirs",
+      aliases: ["Responsable Espace Culturel", "Chef de secteur culture", "Manager multimédia & culture"],
+      photo: { icon: "🧑‍💼", gradient: ["#9333ea", "#581c87"] },
+      description:
+        "Encadre l'espace culturel et multimédia (livres, presse, high-tech, jeux vidéo). Univers de conseil, de nouveautés et de produits à forte valeur.",
+      examples: [
+        "Pilote les temps forts culturels (rentrée littéraire, sorties high-tech).",
+        "Gère les produits à forte valeur et la lutte contre la démarque.",
+        "Manage les responsables librairie/presse et multimédia.",
+      ],
+      passerelles: ["mgr-textile", "directeur-magasin"],
+    },
+    "mgr-textile": {
+      id: "mgr-textile",
+      title: "Manager de secteur Textile & Maison",
+      aliases: ["Responsable secteur non-alimentaire", "Chef de secteur textile-maison", "Manager bazar & équipement"],
+      photo: { icon: "🧑‍💼", gradient: ["#ca8a04", "#78350f"] },
+      description:
+        "Chapeaute le non-alimentaire lourd : textile, maison, électroménager et bazar. Univers du merchandising, des collections saisonnières et de la vente-conseil.",
+      examples: [
+        "Pilote les collections et les temps forts (soldes, saison jardin).",
+        "Coordonne le merchandising et la présentation des univers.",
+        "Manage les responsables textile et maison/électroménager.",
+      ],
+      passerelles: ["mgr-pgc", "mgr-culturel", "directeur-magasin"],
+    },
+    "mgr-caisse": {
+      id: "mgr-caisse",
+      title: "Manager de secteur Caisses & Accueil",
+      aliases: ["Responsable Caisses & Accueil", "Chef de secteur caisse", "Responsable relation client"],
+      photo: { icon: "🧑‍💼", gradient: ["#475569", "#1e293b"] },
+      description:
+        "Pilote le parcours client : ligne de caisses, accueil et services. Enjeu majeur de satisfaction client et de gestion des flux aux heures de pointe.",
+      examples: [
+        "Optimise l'organisation des caisses sur la journée.",
         "Suit les indicateurs de satisfaction client.",
-        "Manage les responsables caisse, accueil et Drive.",
+        "Manage les responsables caisse et accueil.",
       ],
-      passerelles: ["directeur-magasin"],
+      passerelles: ["mgr-drive", "directeur-magasin"],
+    },
+    "mgr-drive": {
+      id: "mgr-drive",
+      title: "Manager de secteur Drive / E-commerce",
+      aliases: ["Responsable Drive", "Chef de secteur Drive", "Manager e-commerce magasin"],
+      photo: { icon: "🧑‍💼", gradient: ["#0284c7", "#0c4a6e"] },
+      description:
+        "Dirige l'activité Drive et e-commerce du magasin : équipe de préparateurs, respect des créneaux, taux de service et logistique de préparation. Une activité souvent gérée à part.",
+      examples: [
+        "Pilote le taux de service et la productivité du picking.",
+        "Organise l'équipe pour tenir les créneaux de retrait.",
+        "Développe l'activité e-commerce du point de vente.",
+      ],
+      passerelles: ["mgr-caisse", "directeur-magasin"],
     },
     "directeur-magasin": {
       id: "directeur-magasin",
@@ -698,7 +813,7 @@ const STORE = {
         "Pilote la casse et les dates courtes.",
         "Coordonne avec la boucherie traditionnelle.",
       ],
-      passerelles: ["manager-secteur-frais"],
+      passerelles: ["mgr-frais-ls"],
     },
     "resp-traiteur-ls": {
       id: "resp-traiteur-ls",
@@ -712,7 +827,7 @@ const STORE = {
         "Gère les dates très courtes du traiteur frais.",
         "Coordonne les opérations traiteur des fêtes.",
       ],
-      passerelles: ["resp-frais-ls", "manager-secteur-frais"],
+      passerelles: ["resp-frais-ls", "mgr-frais-ls"],
     },
     "els-liquides": {
       id: "els-liquides",
@@ -727,6 +842,23 @@ const STORE = {
         "Applique les règles de sécurité pour la manutention lourde.",
       ],
       passerelles: ["resp-liquides", "els-epicerie"],
+    },
+  },
+
+  /*
+   * Départements = grandes catégories qui regroupent plusieurs zones/secteurs.
+   * (Ex : le département FRAIS regroupe frais traditionnel, frais LS et F&L.)
+   */
+  departments: {
+    frais: {
+      id: "frais",
+      name: "Frais",
+      icon: "❄️",
+      color: "#0891b2",
+      manager: "mgr-frais",
+      zones: ["frais-trad", "frais-ls", "fl"],
+      description:
+        "Le grand département du frais, qui regroupe trois secteurs : le Frais Traditionnel (métiers de bouche), le Frais Libre-Service et les Fruits & Légumes. Un univers piloté ensemble car il partage les mêmes enjeux : fraîcheur, hygiène (HACCP), chaîne du froid et gestion de la casse.",
     },
   },
 };
