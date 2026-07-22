@@ -6,9 +6,12 @@ les **intitulés de poste** et les **métiers passerelles** (évolutions possibl
 
 ## Le concept
 
-1. **Vue du magasin (plan vu du haut)** — À la connexion, l'utilisateur voit un plan
-   du magasin avec tous les grands espaces (PGC, Frais traditionnel, Frais LS,
-   Fruits & Légumes, Espace culturel, Textile & Maison, Caisses…).
+1. **Vue du magasin (plan vu du haut)** — À la connexion, l'utilisateur voit un vrai
+   plan de magasin « vu de dessus » (style plan d'architecte, dessiné en SVG) : murs,
+   comptoirs frais, gondoles, meubles froids, îlots fruits & légumes, ligne de caisses
+   et entrée. Chaque grand espace (PGC, Frais traditionnel, Frais LS, Fruits & Légumes,
+   Espace culturel, Textile & Maison, Caisses) porte le nom de ses rayons directement
+   sur le plan (Épicerie, Liquides, DPH, Bazar…).
 2. **Zoom sur un espace** — En cliquant sur un espace, on le décompose en sous-espaces
    (ex : PGC → Épicerie, Liquides, Bazar, DPH) et on affiche les métiers de chacun
    (Responsable liquides, Responsable bazar…).
@@ -31,9 +34,9 @@ python3 -m http.server 8000
 
 ```
 index.html        Structure de la page (3 vues : plan, zone, fiche métier)
-css/styles.css    Mise en forme (plan du magasin, cartes, panneau fiche métier)
+css/styles.css    Mise en forme (plan SVG, cartes, panneau fiche métier)
 js/data.js        ⭐ TOUT LE CONTENU (zones, sous-zones, métiers, passerelles)
-js/app.js         Logique de navigation et rendu
+js/app.js         Plan SVG (objet PLAN) + logique de navigation et rendu
 ```
 
 ## Modifier le contenu
