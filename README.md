@@ -48,6 +48,12 @@ Tout le contenu métier est centralisé dans **`js/data.js`**. Pour ajouter/modi
 - **Une passerelle** : ajouter l'`id` du métier cible dans le tableau `passerelles`.
   On peut pointer vers un métier de rayon ou un métier d'encadrement
   (`managementJobs`).
+- **Une grande catégorie (département)** : dans `departments`, un département est
+  défini par une **liste de rayons** (`subZones`). Les départements peuvent se
+  **chevaucher** (ex : l'Alimentaire prend `epicerie`/`liquides` du PGC, le
+  Non-Alimentaire prend `dph`/`bazar` du même PGC ; le Frais est un sous-ensemble
+  de l'Alimentaire). `showOnPlan: true` matérialise le département par un badge
+  sur le plan. Les départements apparaissent dans la barre au-dessus du plan.
 - **Le plan du magasin** : les zones sont positionnées via `grid-template-areas`
   dans `css/styles.css` (chaque zone a un `area`).
 

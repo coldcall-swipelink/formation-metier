@@ -193,6 +193,46 @@ body {
 .zone-detail__head h2 { margin: 0; font-size: 1.5rem; }
 .zone-detail__head p { margin: 0.3rem 0 0; opacity: 0.9; font-size: 0.92rem; max-width: 70ch; }
 
+/* Barre des grandes catégories (départements) au-dessus du plan */
+.dept-bar {
+  max-width: 1180px;
+  margin: 0 auto 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.dept-bar__label {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  font-weight: 600;
+  margin-right: 0.2rem;
+}
+.dept-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--dc) 60%, transparent);
+  background: color-mix(in srgb, var(--dc) 22%, #0b1220);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s var(--ease), background 0.2s var(--ease);
+}
+.dept-chip:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--dc) 40%, #0b1220); }
+.dept-chip__icon { font-size: 1rem; }
+
+/* Bandeaux départements (détail de zone) : empilés si plusieurs */
+.dept-banners {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: -0.6rem 0 1.1rem;
+}
+
 /* Badge "département" sur le plan SVG */
 .plan-dept { cursor: pointer; outline: none; }
 .plan-dept .hoverable { transition: filter 0.2s var(--ease); }
@@ -207,7 +247,6 @@ body {
   gap: 0.7rem;
   width: 100%;
   text-align: left;
-  margin: -0.6rem 0 1.1rem;
   padding: 0.7rem 1rem;
   border-radius: var(--radius);
   border: 1px dashed color-mix(in srgb, var(--dc) 55%, white);

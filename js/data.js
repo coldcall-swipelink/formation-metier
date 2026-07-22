@@ -148,7 +148,6 @@ const STORE = {
       icon: "🥩",
       color: "#dc2626",
       manager: "mgr-frais-trad",
-      department: "frais",
       description:
         "Le « marché » du magasin : boucherie, poissonnerie, boulangerie-pâtisserie, fromage et charcuterie à la coupe. Des métiers avec vrai savoir-faire artisanal et vente-conseil.",
       subZones: [
@@ -266,7 +265,6 @@ const STORE = {
       icon: "🧀",
       color: "#0891b2",
       manager: "mgr-frais-ls",
-      department: "frais",
       description:
         "Tout le frais emballé en libre-service : produits laitiers, charcuterie LS, traiteur LS et surgelés. Forte contrainte de dates courtes et de chaîne du froid.",
       subZones: [
@@ -349,7 +347,6 @@ const STORE = {
       icon: "🍎",
       color: "#16a34a",
       manager: "mgr-fl",
-      department: "frais",
       description:
         "Souvent le premier rayon à l'entrée : c'est la vitrine fraîcheur du magasin. Gestion très fine des arrivages, de la casse et du théâtralisation.",
       subZones: [
@@ -512,6 +509,101 @@ const STORE = {
 
     /* ------------------------------------------------------------------ */
     {
+      id: "bricolage",
+      area: "brico",
+      name: "Bricolage",
+      subtitle: "Outillage, jardin & déco",
+      icon: "🔧",
+      color: "#ea580c",
+      manager: "mgr-bricolage",
+      description:
+        "Le secteur bricolage, à droite du magasin : outillage, quincaillerie, jardin, plein air, peinture et décoration. Un univers technique de vente-conseil, très saisonnier (jardin) et fait de produits souvent encombrants.",
+      subZones: [
+        {
+          id: "outillage",
+          name: "Outillage & Quincaillerie",
+          icon: "🔧",
+          description: "Outils à main et électroportatifs, quincaillerie, électricité.",
+          jobs: [
+            {
+              id: "resp-outillage",
+              title: "Responsable de rayon Outillage",
+              aliases: ["Chef de rayon outillage-quincaillerie", "Responsable quincaillerie"],
+              photo: { icon: "🔧", gradient: ["#ea580c", "#7c2d12"] },
+              description:
+                "Gère un rayon technique de vente-conseil : outillage à main et électroportatif, quincaillerie, électricité. Assortiment très large et bonne connaissance produit exigée.",
+              examples: [
+                "Conseille un client sur le choix d'une perceuse selon son usage.",
+                "Gère un assortiment de milliers de références (visserie, quincaillerie).",
+                "Met en avant les nouveautés électroportatif en tête de gondole.",
+              ],
+              passerelles: ["resp-jardin", "resp-peinture", "resp-maison", "mgr-bricolage"],
+            },
+            {
+              id: "vendeur-brico",
+              title: "Vendeur-conseil Bricolage",
+              aliases: ["Conseiller de vente bricolage", "Employé rayon bricolage"],
+              photo: { icon: "🛠️", gradient: ["#f97316", "#9a3412"] },
+              description:
+                "Accueille et conseille les clients, réapprovisionne le rayon et oriente vers les bons produits et accessoires. Poste d'entrée du secteur.",
+              examples: [
+                "Aide un client à réunir tout le nécessaire pour un projet.",
+                "Réapprovisionne et range un rayon à très nombreuses références.",
+                "Explique l'utilisation d'un outil ou d'un produit technique.",
+              ],
+              passerelles: ["resp-outillage", "resp-jardin"],
+            },
+          ],
+        },
+        {
+          id: "jardin",
+          name: "Jardin & Plein air",
+          icon: "🪴",
+          description: "Jardinerie, plantes, terreau, mobilier de jardin, barbecue, plein air.",
+          jobs: [
+            {
+              id: "resp-jardin",
+              title: "Responsable de rayon Jardin",
+              aliases: ["Chef de rayon jardinerie", "Responsable plein air / jardin"],
+              photo: { icon: "🪴", gradient: ["#16a34a", "#14532d"] },
+              description:
+                "Rayon très saisonnier (printemps/été) : jardinerie, mobilier de jardin, barbecue, plein air. Gros volumes ponctuels et forte théâtralisation.",
+              examples: [
+                "Monte l'opération jardin au printemps (plantes, terreau, mobilier).",
+                "Gère les gros volumes saisonniers (barbecues, salons de jardin).",
+                "Écoule les stocks en fin de saison via des démarques.",
+              ],
+              passerelles: ["resp-outillage", "resp-peinture", "mgr-bricolage"],
+            },
+          ],
+        },
+        {
+          id: "peinture",
+          name: "Peinture & Déco",
+          icon: "🎨",
+          description: "Peinture, revêtements sol et mur, droguerie technique, décoration.",
+          jobs: [
+            {
+              id: "resp-peinture",
+              title: "Responsable de rayon Peinture & Déco",
+              aliases: ["Chef de rayon peinture-décoration", "Responsable revêtements"],
+              photo: { icon: "🎨", gradient: ["#d97706", "#78350f"] },
+              description:
+                "Gère la peinture, les revêtements (sol, mur) et la décoration. Vente-conseil sur les finitions, les teintes et le calcul des quantités.",
+              examples: [
+                "Aide un client à calculer la quantité de peinture pour une pièce.",
+                "Conseille sur le type de revêtement adapté à un usage.",
+                "Anime le nuancier et les nouveautés décoration.",
+              ],
+              passerelles: ["resp-outillage", "resp-jardin", "mgr-bricolage"],
+            },
+          ],
+        },
+      ],
+    },
+
+    /* ------------------------------------------------------------------ */
+    {
       id: "caisses",
       area: "caisses",
       name: "Caisses & Accueil",
@@ -657,7 +749,7 @@ const STORE = {
         "Arbitre les priorités d'implantation entre plusieurs rayons.",
         "Accompagne la montée en compétence de ses responsables.",
       ],
-      passerelles: ["mgr-frais-ls", "mgr-textile", "directeur-magasin"],
+      passerelles: ["mgr-alimentaire", "mgr-non-alim", "directeur-magasin"],
     },
     // Chef de département FRAIS : regroupe frais trad + frais LS + fruits & légumes
     "mgr-frais": {
@@ -671,6 +763,49 @@ const STORE = {
         "Coordonne les trois secteurs frais sur les opérations et la saisonnalité.",
         "Garantit la politique d'hygiène (HACCP) et de fraîcheur sur tout le département.",
         "Pilote la marge et la démarque globale du frais, et manage les 3 managers de secteur.",
+      ],
+      passerelles: ["mgr-alimentaire", "directeur-magasin"],
+    },
+    // Managers de secteur bricolage + chefs de département alimentaire / non-alimentaire
+    "mgr-bricolage": {
+      id: "mgr-bricolage",
+      title: "Manager de secteur Bricolage",
+      aliases: ["Responsable Bricolage", "Chef de secteur bricolage-jardin"],
+      photo: { icon: "🧑‍💼", gradient: ["#ea580c", "#7c2d12"] },
+      description:
+        "Chapeaute l'univers bricolage : outillage-quincaillerie, jardin/plein air et peinture-déco. Enjeu de vente-conseil technique, de saisonnalité (jardin) et de gestion de produits encombrants.",
+      examples: [
+        "Pilote la saison jardin, temps fort commercial du secteur.",
+        "Coordonne l'assortiment technique et la vente-conseil.",
+        "Manage les responsables outillage, jardin et peinture.",
+      ],
+      passerelles: ["mgr-non-alim", "directeur-magasin"],
+    },
+    "mgr-alimentaire": {
+      id: "mgr-alimentaire",
+      title: "Chef de département Alimentaire",
+      aliases: ["Manager de département Alimentaire", "Responsable Alimentaire", "Directeur du secteur alimentaire"],
+      photo: { icon: "🍎", gradient: ["#15803d", "#052e16"] },
+      description:
+        "Dirige toute la partie alimentaire du magasin : le PGC alimentaire (épicerie, liquides), l'ensemble du frais (traditionnel et libre-service) et les fruits & légumes. Encadre les managers de secteur et le chef de département Frais.",
+      examples: [
+        "Fixe la stratégie et les objectifs commerciaux de tout l'alimentaire.",
+        "Arbitre entre les secteurs (frais, épicerie, F&L) sur les opérations.",
+        "Garantit l'hygiène, la fraîcheur et la performance du food.",
+      ],
+      passerelles: ["directeur-magasin"],
+    },
+    "mgr-non-alim": {
+      id: "mgr-non-alim",
+      title: "Chef de département Non-Alimentaire",
+      aliases: ["Manager de département Non-Alimentaire", "Responsable Non-Alimentaire", "Directeur du bazar / non-alim"],
+      photo: { icon: "🛍️", gradient: ["#7c3aed", "#3b0764"] },
+      description:
+        "Dirige toute la partie non-alimentaire : le DPH et le bazar (issus du PGC), le textile & maison, l'espace culturel et le bricolage. Encadre les managers de secteur non-alimentaires.",
+      examples: [
+        "Fixe la stratégie des univers non-food (mode, maison, culture, bricolage).",
+        "Pilote les collections, les temps forts et la marge du non-alimentaire.",
+        "Manage les managers de secteur textile, culturel et bricolage.",
       ],
       passerelles: ["directeur-magasin"],
     },
@@ -728,7 +863,7 @@ const STORE = {
         "Gère les produits à forte valeur et la lutte contre la démarque.",
         "Manage les responsables librairie/presse et multimédia.",
       ],
-      passerelles: ["mgr-textile", "directeur-magasin"],
+      passerelles: ["mgr-non-alim", "directeur-magasin"],
     },
     "mgr-textile": {
       id: "mgr-textile",
@@ -742,7 +877,7 @@ const STORE = {
         "Coordonne le merchandising et la présentation des univers.",
         "Manage les responsables textile et maison/électroménager.",
       ],
-      passerelles: ["mgr-pgc", "mgr-culturel", "directeur-magasin"],
+      passerelles: ["mgr-non-alim", "directeur-magasin"],
     },
     "mgr-caisse": {
       id: "mgr-caisse",
@@ -850,15 +985,54 @@ const STORE = {
    * (Ex : le département FRAIS regroupe frais traditionnel, frais LS et F&L.)
    */
   departments: {
+    // Grandes catégories transverses. Elles sont définies par RAYON (subZones),
+    // ce qui permet les chevauchements : un rayon du PGC peut relever de
+    // l'alimentaire (épicerie) ou du non-alimentaire (bazar), et le Frais est
+    // un sous-ensemble de l'alimentaire.
+    alimentaire: {
+      id: "alimentaire",
+      name: "Alimentaire",
+      icon: "🍎",
+      color: "#15803d",
+      manager: "mgr-alimentaire",
+      subZones: [
+        "epicerie", "liquides",
+        "boucherie", "poissonnerie", "boulangerie", "coupe",
+        "cremerie-ls", "charcuterie-ls", "surgeles",
+        "fl-sub",
+      ],
+      description:
+        "La grande catégorie alimentaire : tous les rayons de produits à manger et à boire. Elle regroupe le PGC alimentaire (épicerie, liquides), tout le frais (traditionnel et libre-service) et les fruits & légumes. Le département Frais en fait partie.",
+    },
+    "non-alimentaire": {
+      id: "non-alimentaire",
+      name: "Non-Alimentaire",
+      icon: "🛍️",
+      color: "#7c3aed",
+      manager: "mgr-non-alim",
+      subZones: [
+        "dph", "bazar",
+        "librairie", "multimedia",
+        "textile", "maison",
+        "outillage", "jardin", "peinture",
+      ],
+      description:
+        "La grande catégorie non-alimentaire : tout ce qui ne se mange pas. Elle regroupe une partie du PGC (DPH, bazar), le textile & maison, l'espace culturel et le bricolage. C'est normal que certains rayons soient communs avec le PGC.",
+    },
     frais: {
       id: "frais",
       name: "Frais",
       icon: "❄️",
       color: "#0891b2",
       manager: "mgr-frais",
-      zones: ["frais-trad", "frais-ls", "fl"],
+      showOnPlan: true, // matérialisé par un badge flocon sur le plan
+      subZones: [
+        "boucherie", "poissonnerie", "boulangerie", "coupe",
+        "cremerie-ls", "charcuterie-ls", "surgeles",
+        "fl-sub",
+      ],
       description:
-        "Le grand département du frais, qui regroupe trois secteurs : le Frais Traditionnel (métiers de bouche), le Frais Libre-Service et les Fruits & Légumes. Un univers piloté ensemble car il partage les mêmes enjeux : fraîcheur, hygiène (HACCP), chaîne du froid et gestion de la casse.",
+        "Le département du frais (sous-ensemble de l'alimentaire), qui regroupe trois secteurs : le Frais Traditionnel (métiers de bouche), le Frais Libre-Service et les Fruits & Légumes. Un univers piloté ensemble car il partage les mêmes enjeux : fraîcheur, hygiène (HACCP), chaîne du froid et gestion de la casse.",
     },
   },
 };

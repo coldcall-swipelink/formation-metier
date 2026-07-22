@@ -33,10 +33,25 @@
     JOB_INDEX[job.id] = job;
   });
 
-  // Départements (grandes catégories) + contexte des managers
+  // Départements (grandes catégories) + contexte des managers.
+  // Un département est défini par une liste de rayons (subZones) -> chevauchements
+  // possibles (ex : un rayon PGC peut relever de l'alimentaire ou du non-alim).
   const DEPT_INDEX = STORE.departments || {};              // deptId -> department
   const DEPT_BY_MANAGER = {};                              // managerJobId -> department
-  Object.values(DEPT_INDEX).forEach((d) => { DEPT_BY_MANAGER[d.manager] = d; });
+  Object.values(DEPT_INDEX).forEach((d) => {
+    DEPT_BY_MANAGER[d.manager] = d;
+    d._subSet = new Set(d.subZones || []);
+  });
+
+  // Départements auxquels appartient (au moins un rayon de) la zone
+  function departmentsOfZone(zone) {
+    const subIds = zone.subZones.map((s) => s.id);
+    return Object.values(DEPT_INDEX).filter((d) => subIds.some((id) => d._subSet.has(id)));
+  }
+  // La zone est-elle entièrement dans le département ?
+  function zoneFullyInDept(zone, dept) {
+    return zone.subZones.every((s) => dept._subSet.has(s.id));
+  }
 
   // Rattache chaque manager de secteur à sa zone (pour l'affichage de sa fiche)
   STORE.zones.forEach((zone) => {
@@ -57,6 +72,7 @@
   /* ------------------------------------------------------------------- DOM */
   const el = {
     storeMap: document.getElementById("store-map"),
+    deptBar: document.getElementById("dept-bar"),
     viewMap: document.getElementById("view-map"),
     viewZone: document.getElementById("view-zone"),
     zoneDetail: document.getElementById("zone-detail"),
@@ -84,19 +100,19 @@
    *   checkout = ligne de caisses
    */
   const PLAN = {
-    vb: [0, 0, 1200, 820],
+    vb: [0, 0, 1340, 820],
     // Entrée du magasin (rendue à part, en façade)
-    entrance: { x: 1032, y: 726, w: 132, h: 80 },
+    entrance: { x: 1180, y: 726, w: 124, h: 80 },
     zones: [
       // Fond de magasin : comptoirs frais traditionnel (pleine largeur)
       {
         id: "frais-trad",
-        x: 36, y: 34, w: 1128, h: 140,
+        x: 36, y: 34, w: 1268, h: 140,
         cells: [
-          { sub: "boucherie",   x: 52,  y: 74, w: 258, h: 84, pattern: "counter" },
-          { sub: "poissonnerie",x: 326, y: 74, w: 258, h: 84, pattern: "counter" },
-          { sub: "boulangerie", x: 600, y: 74, w: 258, h: 84, pattern: "counter" },
-          { sub: "coupe",       x: 874, y: 74, w: 274, h: 84, pattern: "counter" },
+          { sub: "boucherie",   x: 52,  y: 74, w: 297, h: 84, pattern: "counter" },
+          { sub: "poissonnerie",x: 365, y: 74, w: 297, h: 84, pattern: "counter" },
+          { sub: "boulangerie", x: 678, y: 74, w: 297, h: 84, pattern: "counter" },
+          { sub: "coupe",       x: 991, y: 74, w: 297, h: 84, pattern: "counter" },
         ],
       },
       // Colonne GAUCHE : Frais LS (haut) + Fruits & Légumes (bas)
@@ -130,21 +146,31 @@
       // Colonne DROITE : Espace Culturel (haut) + Textile & Maison (bas)
       {
         id: "culturel",
-        x: 886, y: 194, w: 278, h: 256,
+        x: 886, y: 194, w: 230, h: 256,
         cells: [
-          { sub: "librairie",  x: 902, y: 234, w: 246, h: 96, pattern: "racks" },
-          { sub: "multimedia", x: 902, y: 346, w: 246, h: 96, pattern: "racks" },
+          { sub: "librairie",  x: 902, y: 234, w: 198, h: 96, pattern: "racks" },
+          { sub: "multimedia", x: 902, y: 346, w: 198, h: 96, pattern: "racks" },
         ],
       },
       {
         id: "textile-maison",
-        x: 886, y: 470, w: 278, h: 236,
+        x: 886, y: 470, w: 230, h: 236,
         cells: [
-          { sub: "textile", x: 902, y: 510, w: 246, h: 92, pattern: "racks" },
-          { sub: "maison",  x: 902, y: 614, w: 246, h: 76, pattern: "racks" },
+          { sub: "textile", x: 902, y: 510, w: 198, h: 92, pattern: "racks" },
+          { sub: "maison",  x: 902, y: 614, w: 198, h: 76, pattern: "racks" },
         ],
       },
-      // Façade : Caisses & Accueil (gauche) — Drive détaché (droite) — Entrée
+      // Colonne EXTRÊME DROITE : Bricolage (nouveau secteur)
+      {
+        id: "bricolage",
+        x: 1136, y: 194, w: 168, h: 512,
+        cells: [
+          { sub: "outillage", x: 1152, y: 236, w: 136, h: 150, pattern: "gondola" },
+          { sub: "jardin",    x: 1152, y: 400, w: 136, h: 150, pattern: "bins" },
+          { sub: "peinture",  x: 1152, y: 564, w: 136, h: 126, pattern: "gondola" },
+        ],
+      },
+      // Façade : Caisses & Accueil (gauche) — Drive détaché — Entrée (droite)
       {
         id: "caisses",
         x: 36, y: 726, w: 700, h: 80,
@@ -347,17 +373,19 @@
     const title = zone.name.toUpperCase();
     s += pill(zplan.x + 14, zplan.y - 13, title, zone.icon, color, { fs: 13, h: 28 });
 
-    // Badge "département" (grande catégorie) si la zone en fait partie
-    if (zone.department && DEPT_INDEX[zone.department]) {
-      const dep = DEPT_INDEX[zone.department];
-      const bx = zplan.x + 14 + pillWidth(title, zone.icon, 13) + 16;
-      const by = zplan.y - 13 + 14;
+    // Badge "département" sur le plan : uniquement les départements marqués
+    // showOnPlan qui contiennent entièrement la zone (ex : le Frais / flocon).
+    const planDepts = Object.values(DEPT_INDEX).filter((d) => d.showOnPlan && zoneFullyInDept(zone, d));
+    let bx = zplan.x + 14 + pillWidth(title, zone.icon, 13) + 16;
+    const by = zplan.y - 13 + 14;
+    planDepts.forEach((dep) => {
       s += `<g class="plan-dept" data-dept="${dep.id}" tabindex="0" role="button" aria-label="Département ${escapeHtml(dep.name)}">`;
       s += `<title>Département ${escapeHtml(dep.name)} — cliquez pour voir</title>`;
       s += `<circle class="hoverable" cx="${bx}" cy="${by}" r="14" fill="${dep.color}" stroke="#fff" stroke-width="2"/>`;
       s += `<text x="${bx}" y="${by + 5}" text-anchor="middle" font-size="15" pointer-events="none">${dep.icon}</text>`;
       s += `</g>`;
-    }
+      bx += 32;
+    });
 
     // Cellules (rayons)
     zplan.cells.forEach((c) => { s += renderCell(c, zone); });
@@ -377,6 +405,22 @@
     s += `<text x="${e.x + e.w / 2}" y="${e.y + 72}" text-anchor="middle" font-size="16" fill="#16a34a">▲</text>`;
     s += `</g>`;
     return s;
+  }
+
+  /* ---------------------------------------------- Barre des grandes catégories */
+  function renderDeptBar() {
+    if (!el.deptBar) return;
+    const deps = Object.values(DEPT_INDEX);
+    if (!deps.length) { el.deptBar.innerHTML = ""; return; }
+    el.deptBar.innerHTML =
+      `<span class="dept-bar__label">Grandes catégories :</span>` +
+      deps
+        .map((d) => `<button class="dept-chip" data-dept="${d.id}" style="--dc:${d.color}">
+            <span class="dept-chip__icon">${d.icon}</span>${escapeHtml(d.name)}
+          </button>`)
+        .join("");
+    el.deptBar.querySelectorAll("[data-dept]").forEach((b) =>
+      b.addEventListener("click", () => openDepartment(b.getAttribute("data-dept"))));
   }
 
   /* ------------------------------------------------------------ Rendu du plan */
@@ -427,14 +471,22 @@
     if (!zone) return;
     currentZone = zone;
 
-    // Bandeau département (grande catégorie) si applicable
-    const dep = zone.department ? DEPT_INDEX[zone.department] : null;
-    const depBanner = dep
-      ? `<button class="dept-banner" data-dept="${dep.id}" style="--dc:${dep.color}">
-           <span class="dept-banner__icon">${dep.icon}</span>
-           <span class="dept-banner__text">Fait partie du département <strong>${escapeHtml(dep.name)}</strong></span>
-           <span class="dept-banner__cta">Voir le département →</span>
-         </button>`
+    // Bandeaux départements (grandes catégories) auxquels appartient la zone.
+    // Une zone peut relever de plusieurs départements (ex : PGC = alimentaire
+    // pour épicerie/liquides ET non-alimentaire pour DPH/bazar).
+    const deps = departmentsOfZone(zone);
+    const depBanner = deps.length
+      ? `<div class="dept-banners">` + deps.map((dep) => {
+          const full = zoneFullyInDept(zone, dep);
+          const txt = full
+            ? `Fait partie du département <strong>${escapeHtml(dep.name)}</strong>`
+            : `Certains rayons relèvent du département <strong>${escapeHtml(dep.name)}</strong>`;
+          return `<button class="dept-banner" data-dept="${dep.id}" style="--dc:${dep.color}">
+             <span class="dept-banner__icon">${dep.icon}</span>
+             <span class="dept-banner__text">${txt}</span>
+             <span class="dept-banner__cta">Voir →</span>
+           </button>`;
+        }).join("") + `</div>`
       : "";
 
     // Carte du responsable de secteur (métier de la grande catégorie)
@@ -590,16 +642,23 @@
     const mgr = dep.manager ? JOB_INDEX[dep.manager] : null;
     const [g1, g2] = mgr ? mgr.photo.gradient : [dep.color, shade(dep.color, -28)];
 
-    const zonesHtml = dep.zones
-      .map((zid) => {
-        const z = ZONE_INDEX[zid];
-        if (!z) return "";
+    // Regroupe les rayons membres par zone (gère l'appartenance partielle)
+    const byZone = {};
+    (dep.subZones || []).forEach((sid) => {
+      const m = SUB_INDEX[sid];
+      if (!m) return;
+      (byZone[m.zone.id] = byZone[m.zone.id] || { zone: m.zone, subs: [] }).subs.push(m.sub);
+    });
+    const zonesHtml = Object.values(byZone)
+      .map((g) => {
+        const full = g.zone.subZones.length === g.subs.length;
+        const note = full ? "Tout le secteur" : g.subs.map((s) => s.name).join(" · ");
         return `
-          <button class="passerelle" data-zone="${z.id}">
-            <span class="passerelle__icon" style="--c1:${z.color};--c2:${shade(z.color, -28)}">${z.icon}</span>
+          <button class="passerelle" data-zone="${g.zone.id}" data-sub="${g.subs[0].id}">
+            <span class="passerelle__icon" style="--c1:${g.zone.color};--c2:${shade(g.zone.color, -28)}">${g.zone.icon}</span>
             <span>
-              <span class="passerelle__title">${escapeHtml(z.name)}</span><br>
-              <span class="passerelle__note">${escapeHtml(z.subtitle || "")}</span>
+              <span class="passerelle__title">${escapeHtml(g.zone.name)}</span><br>
+              <span class="passerelle__note">${escapeHtml(note)}</span>
             </span>
             <span class="passerelle__arrow" style="margin-left:auto">→</span>
           </button>`;
@@ -639,7 +698,7 @@
     el.jobPanelBody.querySelectorAll("[data-job]").forEach((b) =>
       b.addEventListener("click", () => openJob(b.getAttribute("data-job"))));
     el.jobPanelBody.querySelectorAll("[data-zone]").forEach((b) =>
-      b.addEventListener("click", () => { closePanel(); openZone(b.getAttribute("data-zone")); }));
+      b.addEventListener("click", () => { closePanel(); openZone(b.getAttribute("data-zone"), b.getAttribute("data-sub")); }));
 
     openPanel();
     el.jobPanelBody.parentElement.scrollTop = 0;
@@ -699,6 +758,7 @@
   });
 
   /* ------------------------------------------------------------ Init */
+  renderDeptBar();
   renderMap();
   renderBreadcrumb();
 })();
