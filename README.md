@@ -45,8 +45,12 @@ Tout le contenu métier est centralisé dans **`js/data.js`**. Pour ajouter/modi
 
 - **Un métier** : ajouter un objet dans `jobs` de la sous-zone concernée
   (champs : `title`, `aliases`, `description`, `examples`, `passerelles`,
-  et `kind` optionnel : `"artisan"`, `"vente"` ou `"encadrement"` — affiche un
-  tag et distingue vrais métiers vs postes de vente).
+  `kind` optionnel : `"artisan"`, `"vente"` ou `"encadrement"`, et `salaires`
+  `{ hyper, super, proximite }` en € brut mensuel).
+- **Les salaires** : chaque métier porte `salaires: { hyper, super, proximite }`.
+  Un sélecteur en en-tête (Hyper / Super / Proximité, mémorisé en localStorage)
+  choisit le format affiché sur les chips ; la fiche métier montre les 3 valeurs.
+  Le template de saisie est `salaires-metiers-template.xlsx`.
 - **Une règle de sourcing** (recrutement) sur un rayon : champ `sourcing` de la
   sous-zone `{ level: "strict" | "souple", note: "..." }`. `strict` = profils
   cloisonnés (ex : boucher ≠ vendeur, pas de passerelle entre eux) ; `souple` =

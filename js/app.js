@@ -73,6 +73,7 @@
   const el = {
     storeMap: document.getElementById("store-map"),
     deptBar: document.getElementById("dept-bar"),
+    salarySwitch: document.getElementById("salary-switch"),
     viewMap: document.getElementById("view-map"),
     viewZone: document.getElementById("view-zone"),
     zoneDetail: document.getElementById("zone-detail"),
@@ -85,6 +86,47 @@
   };
 
   let currentZone = null;
+  let currentJobId = null;
+
+  /* ------------------------------------------------- Salaires & format magasin */
+  const FORMATS = [
+    { key: "hyper", label: "Hypermarché", short: "Hyper" },
+    { key: "super", label: "Supermarché", short: "Super" },
+    { key: "proximite", label: "Magasin de proximité", short: "Proximité" },
+  ];
+  let salaryFormat = "hyper";
+  try {
+    const saved = localStorage.getItem("salaryFormat");
+    if (saved && FORMATS.some((f) => f.key === saved)) salaryFormat = saved;
+  } catch (e) { /* localStorage indisponible : on garde le défaut */ }
+
+  function formatEuro(n) {
+    if (n == null || isNaN(n)) return "—";
+    return n.toLocaleString("fr-FR") + " €";
+  }
+  // Petit tag salaire (format courant) pour les chips de métier
+  function salaryTag(job) {
+    if (!job.salaires) return "";
+    const v = job.salaires[salaryFormat];
+    if (v == null) return "";
+    return `<span class="sal-tag" title="Salaire ${FORMATS.find((f) => f.key === salaryFormat).label} (brut mensuel)">💶 ${formatEuro(v)}</span>`;
+  }
+  // Bloc salaires détaillé (3 formats) pour la fiche métier
+  function salaryTiles(job) {
+    if (!job.salaires) return "";
+    const tiles = FORMATS.map((f) => {
+      const active = f.key === salaryFormat;
+      return `<div class="sal-tile${active ? " is-active" : ""}">
+          <span class="sal-tile__label">${escapeHtml(f.short)}</span>
+          <span class="sal-tile__value">${formatEuro(job.salaires[f.key])}</span>
+        </div>`;
+    }).join("");
+    return `
+      <div class="job-section">
+        <h4>💶 Salaire indicatif <span class="sal-note">brut mensuel · temps plein</span></h4>
+        <div class="sal-tiles">${tiles}</div>
+      </div>`;
+  }
 
   /* ====================================================================== */
   /*  PLAN DU MAGASIN (vue de dessus, SVG)                                   */
@@ -625,6 +667,7 @@
                 <span class="job-chip__title">${escapeHtml(job.title)}</span>
                 <span class="job-chip__hint">${job.kind ? kindTag(job.kind) + " " : ""}${escapeHtml(job.aliases && job.aliases[0] ? job.aliases[0] : "Voir la fiche")}</span>
               </span>
+              ${salaryTag(job)}
               <span class="job-chip__arrow">›</span>
             </button>`
             )
@@ -640,6 +683,7 @@
   function openJob(jobId) {
     const job = JOB_INDEX[jobId];
     if (!job) return;
+    currentJobId = jobId;
 
     const ctx = JOB_CONTEXT[jobId];
     const zone = ctx ? ctx.zone : currentZone;
@@ -682,6 +726,7 @@
           ${(job.aliases || []).map((a) => `<span class="alias">${escapeHtml(a)}</span>`).join("")}
         </div>
         ${subZone ? sourcingHtml(subZone.sourcing) : ""}
+        ${salaryTiles(job)}
         <div class="job-section">
           <h4>📝 Le métier</h4>
           <p>${escapeHtml(job.description)}</p>
@@ -806,6 +851,7 @@
   function closePanel() {
     el.jobPanel.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
+    currentJobId = null;
   }
 
   function renderBreadcrumb() {
@@ -817,6 +863,28 @@
     el.breadcrumb.innerHTML = parts.join("");
     const home = el.breadcrumb.querySelector('[data-nav="home"]');
     if (home) home.addEventListener("click", backToMap);
+  }
+
+  /* ------------------------------------------------ Sélecteur format magasin */
+  function renderSalarySwitch() {
+    if (!el.salarySwitch) return;
+    el.salarySwitch.querySelectorAll("[data-fmt]").forEach((b) => {
+      b.classList.toggle("is-active", b.getAttribute("data-fmt") === salaryFormat);
+    });
+  }
+  function setSalaryFormat(fmt) {
+    if (!FORMATS.some((f) => f.key === fmt) || fmt === salaryFormat) return;
+    salaryFormat = fmt;
+    try { localStorage.setItem("salaryFormat", fmt); } catch (e) { /* ignore */ }
+    renderSalarySwitch();
+    // Rafraîchit les vues affichées pour mettre à jour les salaires
+    if (currentZone) openZone(currentZone.id);
+    if (currentJobId) openJob(currentJobId);
+  }
+  if (el.salarySwitch) {
+    el.salarySwitch.querySelectorAll("[data-fmt]").forEach((b) => {
+      b.addEventListener("click", () => setSalaryFormat(b.getAttribute("data-fmt")));
+    });
   }
 
   /* --------------------------------------------------------- Écouteurs */
@@ -831,6 +899,7 @@
   });
 
   /* ------------------------------------------------------------ Init */
+  renderSalarySwitch();
   renderDeptBar();
   renderMap();
   renderBreadcrumb();

@@ -43,6 +43,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-epicerie",
+              salaires: { hyper: 3300, super: 2700, proximite: 2200 },
               title: "Responsable de rayon Épicerie",
               aliases: ["Chef de rayon épicerie", "Manager de rayon épicerie", "Responsable épicerie salée / sucrée"],
               photo: { icon: "🥫", gradient: ["#f59e0b", "#b45309"] },
@@ -57,6 +58,7 @@ const STORE = {
             },
             {
               id: "els-epicerie",
+              salaires: { hyper: 1872, super: 1872, proximite: 1872 },
               title: "Employé libre-service Épicerie",
               aliases: ["ELS", "Employé commercial", "Vendeur libre-service"],
               photo: { icon: "📦", gradient: ["#fbbf24", "#d97706"] },
@@ -80,6 +82,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-liquides",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Liquides",
               aliases: ["Chef de rayon liquides", "Responsable BRS (Bières, Rhums, Spiritueux)", "Responsable cave / vins"],
               photo: { icon: "🍷", gradient: ["#7c3aed", "#4c1d95"] },
@@ -103,6 +106,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-dph",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon DPH",
               aliases: ["Chef de rayon DPH", "Responsable hygiène-beauté", "Responsable droguerie-parfumerie"],
               photo: { icon: "🧴", gradient: ["#0ea5e9", "#0369a1"] },
@@ -126,6 +130,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-bazar",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Bazar",
               aliases: ["Chef de rayon bazar", "Responsable saisonnier", "Responsable non-alimentaire léger"],
               photo: { icon: "🎁", gradient: ["#ec4899", "#9d174e"] },
@@ -168,6 +173,7 @@ const STORE = {
           jobs: [
             {
               id: "boucher",
+              salaires: { hyper: 2500, super: 2500, proximite: 2500 },
               title: "Boucher",
               kind: "artisan",
               aliases: ["Boucher-vendeur", "Ouvrier boucher"],
@@ -183,6 +189,7 @@ const STORE = {
             },
             {
               id: "vendeur-boucherie",
+              salaires: { hyper: 1900, super: 1900, proximite: 1900 },
               title: "Vendeur en boucherie",
               kind: "vente",
               aliases: ["Vendeur au rayon boucherie", "Employé de vente boucherie"],
@@ -198,6 +205,7 @@ const STORE = {
             },
             {
               id: "chef-boucher",
+              salaires: { hyper: 4500, super: 3200, proximite: 2800 },
               title: "Chef boucher / Responsable boucherie",
               kind: "encadrement",
               aliases: ["Manager boucherie", "Chef d'équipe boucherie"],
@@ -226,6 +234,7 @@ const STORE = {
           jobs: [
             {
               id: "poissonnier",
+              salaires: { hyper: 1900, super: 1900, proximite: 1900 },
               title: "Poissonnier",
               kind: "artisan",
               aliases: ["Vrai poissonnier", "Poissonnier de métier", "Écailler"],
@@ -241,6 +250,7 @@ const STORE = {
             },
             {
               id: "vendeur-poissonnerie",
+              salaires: { hyper: 1900, super: 1900, proximite: 1900 },
               title: "Vendeur au stand poissonnerie",
               kind: "vente",
               aliases: ["Vendeur poissonnerie", "Employé stand marée"],
@@ -269,6 +279,7 @@ const STORE = {
           jobs: [
             {
               id: "boulanger",
+              salaires: { hyper: 2200, super: 2200, proximite: 2200 },
               title: "Boulanger / Pâtissier",
               kind: "artisan",
               aliases: ["Responsable boulangerie", "Chef de fabrication BVP"],
@@ -284,6 +295,7 @@ const STORE = {
             },
             {
               id: "vendeur-boulangerie",
+              salaires: { hyper: 1900, super: 1900, proximite: 1900 },
               title: "Vendeur en boulangerie",
               kind: "vente",
               aliases: ["Vendeur boulangerie-pâtisserie", "Employé de vente BVP"],
@@ -312,6 +324,7 @@ const STORE = {
           jobs: [
             {
               id: "fromager",
+              salaires: { hyper: 2100, super: 2100, proximite: 2100 },
               title: "Charcutier-traiteur / Fromager",
               kind: "artisan",
               aliases: ["Charcutier-traiteur", "Fromager", "Responsable coupe"],
@@ -327,6 +340,7 @@ const STORE = {
             },
             {
               id: "vendeur-charcuterie",
+              salaires: { hyper: 1900, super: 1900, proximite: 1900 },
               title: "Vendeur en charcuterie / traiteur",
               kind: "vente",
               aliases: ["Vendeur au stand charcuterie", "Vendeur traiteur", "Employé coupe"],
@@ -366,6 +380,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-frais-ls",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Frais LS",
               aliases: ["Chef de rayon crèmerie LS", "Responsable produits laitiers", "Manager frais libre-service"],
               photo: { icon: "🥛", gradient: ["#38bdf8", "#0c4a6e"] },
@@ -390,6 +405,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-charcuterie-ls",
+              salaires: { hyper: 3000, super: 2500, proximite: 2100 },
               title: "Responsable Charcuterie / Traiteur LS",
               aliases: ["Chef de rayon charcuterie LS", "Responsable traiteur libre-service"],
               photo: { icon: "🥓", gradient: ["#fb7185", "#881337"] },
@@ -413,6 +429,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-surgeles",
+              salaires: { hyper: 2500, super: 2300, proximite: 1900 },
               title: "Responsable de rayon Surgelés",
               aliases: ["Chef de rayon surgelés", "Responsable produits congelés"],
               photo: { icon: "🧊", gradient: ["#60a5fa", "#1e3a8a"] },
@@ -451,6 +468,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-fl",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Fruits & Légumes",
               aliases: ["Chef de rayon F&L", "Responsable primeur", "Manager fruits et légumes"],
               photo: { icon: "🍎", gradient: ["#22c55e", "#14532d"] },
@@ -465,6 +483,7 @@ const STORE = {
             },
             {
               id: "els-fl",
+              salaires: { hyper: 1872, super: 1872, proximite: 1872 },
               title: "Employé Fruits & Légumes",
               aliases: ["Employé commercial F&L", "Vendeur primeur"],
               photo: { icon: "🥕", gradient: ["#4ade80", "#166534"] },
@@ -503,6 +522,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-culturel",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable Espace Culturel",
               aliases: ["Chef de rayon culture", "Libraire", "Responsable livre / presse"],
               photo: { icon: "📚", gradient: ["#a855f7", "#581c87"] },
@@ -526,6 +546,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-multimedia",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable Multimédia / High-Tech",
               aliases: ["Chef de rayon multimédia", "Vendeur high-tech", "Responsable image & son"],
               photo: { icon: "🎮", gradient: ["#6366f1", "#312e81"] },
@@ -564,6 +585,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-textile",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Textile",
               aliases: ["Chef de rayon textile", "Responsable prêt-à-porter", "Visual merchandiser"],
               photo: { icon: "👗", gradient: ["#f472b6", "#831843"] },
@@ -587,6 +609,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-maison",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable Maison / Électroménager",
               aliases: ["Chef de rayon maison", "Responsable électroménager", "Responsable bazar lourd"],
               photo: { icon: "🛋️", gradient: ["#d97706", "#78350f"] },
@@ -625,6 +648,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-outillage",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Outillage",
               aliases: ["Chef de rayon outillage-quincaillerie", "Responsable quincaillerie"],
               photo: { icon: "🔧", gradient: ["#ea580c", "#7c2d12"] },
@@ -639,6 +663,7 @@ const STORE = {
             },
             {
               id: "resp-peinture",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Peinture & Déco",
               aliases: ["Chef de rayon peinture-décoration", "Responsable revêtements"],
               photo: { icon: "🎨", gradient: ["#d97706", "#78350f"] },
@@ -653,6 +678,7 @@ const STORE = {
             },
             {
               id: "vendeur-brico",
+              salaires: { hyper: 1872, super: 1872, proximite: 1872 },
               title: "Vendeur-conseil Bricolage",
               aliases: ["Conseiller de vente bricolage", "Employé rayon bricolage"],
               photo: { icon: "🛠️", gradient: ["#f97316", "#9a3412"] },
@@ -676,6 +702,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-jardin",
+              salaires: { hyper: 2800, super: 2500, proximite: 2100 },
               title: "Responsable de rayon Jardinerie",
               aliases: ["Chef de rayon jardinerie", "Responsable jardin / plein air"],
               photo: { icon: "🪴", gradient: ["#16a34a", "#14532d"] },
@@ -690,6 +717,7 @@ const STORE = {
             },
             {
               id: "vendeur-jardinerie",
+              salaires: { hyper: 1872, super: 1872, proximite: 1872 },
               title: "Vendeur-conseil Jardinerie",
               aliases: ["Conseiller de vente jardinerie", "Employé rayon jardin"],
               photo: { icon: "🌱", gradient: ["#22c55e", "#166534"] },
@@ -727,6 +755,7 @@ const STORE = {
           jobs: [
             {
               id: "hote-caisse",
+              salaires: { hyper: 1872, super: 1872, proximite: 1872 },
               title: "Hôte(sse) de caisse",
               aliases: ["Employé de caisse", "Caissier"],
               photo: { icon: "🧾", gradient: ["#94a3b8", "#334155"] },
@@ -741,6 +770,7 @@ const STORE = {
             },
             {
               id: "resp-caisse",
+              salaires: { hyper: 2500, super: 2200, proximite: 1900 },
               title: "Responsable Caisse / Ligne de caisses",
               aliases: ["Manager caisse", "Chef de caisses", "Responsable encaissement"],
               photo: { icon: "💳", gradient: ["#64748b", "#1e293b"] },
@@ -763,6 +793,7 @@ const STORE = {
           jobs: [
             {
               id: "charge-accueil",
+              salaires: { hyper: 1872, super: 1872, proximite: 1872 },
               title: "Chargé(e) d'accueil / Service client",
               aliases: ["Hôte(sse) d'accueil", "Conseiller service client", "Responsable accueil"],
               photo: { icon: "💁", gradient: ["#818cf8", "#3730a3"] },
@@ -801,6 +832,7 @@ const STORE = {
           jobs: [
             {
               id: "resp-drive",
+              salaires: { hyper: 2900, super: 2500, proximite: 2000 },
               title: "Responsable Drive",
               aliases: ["Manager Drive", "Responsable e-commerce / préparation de commandes"],
               photo: { icon: "🚗", gradient: ["#0ea5e9", "#0c4a6e"] },
@@ -815,6 +847,7 @@ const STORE = {
             },
             {
               id: "prepa-drive",
+              salaires: { hyper: 1872, super: 1872, proximite: 1872 },
               title: "Préparateur de commandes Drive",
               aliases: ["Employé Drive", "Picker"],
               photo: { icon: "📋", gradient: ["#38bdf8", "#075985"] },
@@ -845,6 +878,7 @@ const STORE = {
      */
     "mgr-pgc": {
       id: "mgr-pgc",
+      salaires: { hyper: 3500, super: 2900, proximite: 2100 },
       title: "Manager de secteur PGC",
       aliases: ["Responsable PGC", "Chef de secteur PGC", "Manager marchandises générales", "Manager univers épicerie-liquides-DPH-bazar"],
       photo: { icon: "🧑‍💼", gradient: ["#1d4ed8", "#1e3a8a"] },
@@ -860,6 +894,7 @@ const STORE = {
     // Chef de département FRAIS : regroupe frais trad + frais LS + fruits & légumes
     "mgr-frais": {
       id: "mgr-frais",
+      salaires: { hyper: 3500, super: 2900, proximite: 2100 },
       title: "Chef de département Frais",
       aliases: ["Manager de département Frais", "Responsable Frais", "Directeur du frais"],
       photo: { icon: "❄️", gradient: ["#0891b2", "#0c4a6e"] },
@@ -875,6 +910,7 @@ const STORE = {
     // Managers de secteur bricolage + chefs de département alimentaire / non-alimentaire
     "mgr-bricolage": {
       id: "mgr-bricolage",
+      salaires: { hyper: 2800, super: 2500, proximite: 2100 },
       title: "Manager de secteur Bricolage / Jardinerie",
       aliases: ["Responsable Bricolage / Jardinerie", "Chef de secteur bricolage-jardin"],
       photo: { icon: "🧑‍💼", gradient: ["#ea580c", "#7c2d12"] },
@@ -889,6 +925,7 @@ const STORE = {
     },
     "mgr-alimentaire": {
       id: "mgr-alimentaire",
+      salaires: { hyper: 3500, super: 2900, proximite: 2100 },
       title: "Chef de département Alimentaire",
       aliases: ["Manager de département Alimentaire", "Responsable Alimentaire", "Directeur du secteur alimentaire"],
       photo: { icon: "🍎", gradient: ["#15803d", "#052e16"] },
@@ -903,6 +940,7 @@ const STORE = {
     },
     "mgr-non-alim": {
       id: "mgr-non-alim",
+      salaires: { hyper: 3500, super: 2900, proximite: 2100 },
       title: "Chef de département Non-Alimentaire",
       aliases: ["Manager de département Non-Alimentaire", "Responsable Non-Alimentaire", "Directeur du bazar / non-alim"],
       photo: { icon: "🛍️", gradient: ["#7c3aed", "#3b0764"] },
@@ -917,6 +955,7 @@ const STORE = {
     },
     "mgr-frais-trad": {
       id: "mgr-frais-trad",
+      salaires: { hyper: 4000, super: 3000, proximite: 2500 },
       title: "Manager de secteur Frais Traditionnel",
       aliases: ["Responsable Frais Traditionnel", "Responsable Frais Trad", "Chef de secteur marché", "Manager métiers de bouche"],
       photo: { icon: "🧑‍💼", gradient: ["#dc2626", "#7f1d1d"] },
@@ -931,6 +970,7 @@ const STORE = {
     },
     "mgr-frais-ls": {
       id: "mgr-frais-ls",
+      salaires: { hyper: 2800, super: 2500, proximite: 2100 },
       title: "Manager de secteur Frais Libre-Service",
       aliases: ["Responsable Frais LS", "Chef de secteur frais LS", "Manager univers frais libre-service"],
       photo: { icon: "🧑‍💼", gradient: ["#0891b2", "#155e75"] },
@@ -945,6 +985,7 @@ const STORE = {
     },
     "mgr-fl": {
       id: "mgr-fl",
+      salaires: { hyper: 2800, super: 2500, proximite: 2100 },
       title: "Manager de secteur Fruits & Légumes",
       aliases: ["Responsable Fruits & Légumes", "Chef de secteur marché F&L", "Manager primeur"],
       photo: { icon: "🧑‍💼", gradient: ["#16a34a", "#14532d"] },
@@ -959,6 +1000,7 @@ const STORE = {
     },
     "mgr-culturel": {
       id: "mgr-culturel",
+      salaires: { hyper: 2800, super: 2500, proximite: 2100 },
       title: "Manager de secteur Culture & Loisirs",
       aliases: ["Responsable Espace Culturel", "Chef de secteur culture", "Manager multimédia & culture"],
       photo: { icon: "🧑‍💼", gradient: ["#9333ea", "#581c87"] },
@@ -973,6 +1015,7 @@ const STORE = {
     },
     "mgr-textile": {
       id: "mgr-textile",
+      salaires: { hyper: 2800, super: 2500, proximite: 2100 },
       title: "Manager de secteur Textile & Maison",
       aliases: ["Responsable secteur non-alimentaire", "Chef de secteur textile-maison", "Manager bazar & équipement"],
       photo: { icon: "🧑‍💼", gradient: ["#ca8a04", "#78350f"] },
@@ -987,6 +1030,7 @@ const STORE = {
     },
     "mgr-caisse": {
       id: "mgr-caisse",
+      salaires: { hyper: 2500, super: 2200, proximite: 2100 },
       title: "Manager de secteur Caisses & Accueil",
       aliases: ["Responsable Caisses & Accueil", "Chef de secteur caisse", "Responsable relation client"],
       photo: { icon: "🧑‍💼", gradient: ["#475569", "#1e293b"] },
@@ -1001,6 +1045,7 @@ const STORE = {
     },
     "mgr-drive": {
       id: "mgr-drive",
+      salaires: { hyper: 2900, super: 2500, proximite: 2100 },
       title: "Manager de secteur Drive / E-commerce",
       aliases: ["Responsable Drive", "Chef de secteur Drive", "Manager e-commerce magasin"],
       photo: { icon: "🧑‍💼", gradient: ["#0284c7", "#0c4a6e"] },
@@ -1015,6 +1060,7 @@ const STORE = {
     },
     "directeur-magasin": {
       id: "directeur-magasin",
+      salaires: { hyper: 6500, super: 4500, proximite: 2800 },
       title: "Directeur de magasin",
       aliases: ["Directeur d'hypermarché", "Directeur de supermarché", "Chef de magasin"],
       photo: { icon: "🏆", gradient: ["#111827", "#000000"] },
@@ -1030,6 +1076,7 @@ const STORE = {
     // Passerelles métiers de bouche entre trad et LS
     "boucher-ls": {
       id: "boucher-ls",
+      salaires: { hyper: 2300, super: 2300, proximite: 2300 },
       title: "Boucher Libre-Service",
       aliases: ["Responsable boucherie LS", "Préparateur viande LS"],
       photo: { icon: "🥩", gradient: ["#ef4444", "#7f1d1d"] },
@@ -1044,6 +1091,7 @@ const STORE = {
     },
     "chef-boucher-ls": {
       id: "chef-boucher-ls",
+      salaires: { hyper: 3000, super: 2800, proximite: 2500 },
       title: "Responsable Boucherie Libre-Service",
       aliases: ["Chef de rayon viande LS", "Manager boucherie LS"],
       photo: { icon: "🥩", gradient: ["#b91c1c", "#450a0a"] },
@@ -1058,6 +1106,7 @@ const STORE = {
     },
     "resp-traiteur-ls": {
       id: "resp-traiteur-ls",
+      salaires: { hyper: 2500, super: 2300, proximite: 2000 },
       title: "Responsable Traiteur LS",
       aliases: ["Chef de rayon traiteur libre-service"],
       photo: { icon: "🍱", gradient: ["#fb923c", "#7c2d12"] },
@@ -1072,6 +1121,7 @@ const STORE = {
     },
     "els-liquides": {
       id: "els-liquides",
+      salaires: { hyper: 1872, super: 1872, proximite: 1872 },
       title: "Employé libre-service Liquides",
       aliases: ["ELS liquides", "Employé commercial liquides"],
       photo: { icon: "🧃", gradient: ["#7c3aed", "#4c1d95"] },

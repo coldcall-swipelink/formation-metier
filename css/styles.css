@@ -73,6 +73,47 @@ body {
   color: #cbd5e1;
 }
 
+.app-header__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+/* Sélecteur de format de magasin (salaires) */
+.salary-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  padding: 3px;
+}
+.salary-switch__label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  padding: 0 0.5rem 0 0.6rem;
+}
+.salary-switch button {
+  border: none;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.salary-switch button:hover { color: #fff; }
+.salary-switch button.is-active {
+  background: #10b981;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(16,185,129,0.4);
+}
+
 /* ------------------------------------------------------------ Breadcrumb */
 .breadcrumb {
   display: flex;
@@ -414,7 +455,57 @@ body {
 }
 .job-chip__title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.2; }
 .job-chip__hint { font-size: 0.72rem; color: var(--text-soft); }
-.job-chip__arrow { margin-left: auto; color: #94a3b8; font-size: 1.1rem; }
+.job-chip__arrow { color: #94a3b8; font-size: 1.1rem; }
+
+/* Tag salaire (format courant) sur les chips */
+.sal-tag {
+  margin-left: auto;
+  flex: none;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #065f46;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+/* Tuiles salaire (3 formats) sur la fiche métier */
+.sal-note {
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-soft);
+  margin-left: 0.4rem;
+}
+.sal-tiles { display: flex; gap: 0.5rem; }
+.sal-tile {
+  flex: 1;
+  text-align: center;
+  padding: 0.55rem 0.4rem;
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+.sal-tile.is-active {
+  background: #10b981;
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+}
+.sal-tile__label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-soft);
+  margin-bottom: 2px;
+}
+.sal-tile.is-active .sal-tile__label { color: rgba(255,255,255,0.85); }
+.sal-tile__value { display: block; font-size: 1.05rem; font-weight: 800; color: var(--text); }
+.sal-tile.is-active .sal-tile__value { color: #fff; }
 
 /* ----------------------------------------------------- Panneau fiche métier */
 .job-panel { position: fixed; inset: 0; z-index: 50; pointer-events: none; }
