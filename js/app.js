@@ -255,6 +255,30 @@
       </div>`;
   }
 
+  /* ---------------------------------- Type de métier (artisan / vente) + sourcing */
+  const KIND = {
+    artisan: { label: "Métier artisanal", icon: "🧑‍🍳", color: "#b45309" },
+    vente: { label: "Métier de vente", icon: "🛍️", color: "#0891b2" },
+    encadrement: { label: "Encadrement", icon: "📊", color: "#475569" },
+  };
+  function kindTag(kind) {
+    const k = KIND[kind];
+    if (!k) return "";
+    return `<span class="kind-tag" style="--kc:${k.color}">${k.icon} ${escapeHtml(k.label)}</span>`;
+  }
+  function sourcingHtml(sc) {
+    if (!sc) return "";
+    const strict = sc.level === "strict";
+    return `
+      <div class="sourcing sourcing--${strict ? "strict" : "souple"}">
+        <span class="sourcing__icon">${strict ? "⛔" : "≈"}</span>
+        <div>
+          <div class="sourcing__title">${strict ? "Règle de sourcing — profils cloisonnés" : "Règle de sourcing — profils interchangeables"}</div>
+          <p>${escapeHtml(sc.note)}</p>
+        </div>
+      </div>`;
+  }
+
   /* ------------------------------------------------------- Briques SVG */
   function rr(x, y, w, h, rx, attrs) {
     return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" ${attrs}/>`;
@@ -590,6 +614,7 @@
           <h3>${escapeHtml(sub.name)}</h3>
         </div>
         <p class="subzone-card__desc">${escapeHtml(sub.description || "")}</p>
+        ${sourcingHtml(sub.sourcing)}
         <div class="job-list">
           ${sub.jobs
             .map(
@@ -598,7 +623,7 @@
               <span class="job-chip__icon" style="--c1:${c1};--c2:${c2}">${job.photo.icon}</span>
               <span>
                 <span class="job-chip__title">${escapeHtml(job.title)}</span>
-                <span class="job-chip__hint">${escapeHtml(job.aliases && job.aliases[0] ? job.aliases[0] : "Voir la fiche")}</span>
+                <span class="job-chip__hint">${job.kind ? kindTag(job.kind) + " " : ""}${escapeHtml(job.aliases && job.aliases[0] ? job.aliases[0] : "Voir la fiche")}</span>
               </span>
               <span class="job-chip__arrow">›</span>
             </button>`
@@ -618,6 +643,7 @@
 
     const ctx = JOB_CONTEXT[jobId];
     const zone = ctx ? ctx.zone : currentZone;
+    const subZone = ctx ? ctx.subZone : null;
     const accent = zone ? zone.color : "#475569";
     const [g1, g2] = job.photo.gradient;
 
@@ -647,11 +673,15 @@
         <span class="job-photo__tag">📷 Photo type du rayon (placeholder)</span>
       </div>
       <div class="job-body">
-        ${zone ? `<span class="job-body__zone" style="--accent:${accent}">${escapeHtml(zone.name)}</span>` : ""}
+        <div class="job-body__tags">
+          ${zone ? `<span class="job-body__zone" style="--accent:${accent}">${escapeHtml(zone.name)}</span>` : ""}
+          ${kindTag(job.kind)}
+        </div>
         <h2 id="job-panel-title">${escapeHtml(job.title)}</h2>
         <div class="job-aliases">
           ${(job.aliases || []).map((a) => `<span class="alias">${escapeHtml(a)}</span>`).join("")}
         </div>
+        ${subZone ? sourcingHtml(subZone.sourcing) : ""}
         <div class="job-section">
           <h4>📝 Le métier</h4>
           <p>${escapeHtml(job.description)}</p>

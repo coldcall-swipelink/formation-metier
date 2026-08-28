@@ -44,7 +44,14 @@ js/app.js         Plan SVG (objet PLAN) + logique de navigation et rendu
 Tout le contenu métier est centralisé dans **`js/data.js`**. Pour ajouter/modifier :
 
 - **Un métier** : ajouter un objet dans `jobs` de la sous-zone concernée
-  (champs : `title`, `aliases`, `description`, `examples`, `passerelles`).
+  (champs : `title`, `aliases`, `description`, `examples`, `passerelles`,
+  et `kind` optionnel : `"artisan"`, `"vente"` ou `"encadrement"` — affiche un
+  tag et distingue vrais métiers vs postes de vente).
+- **Une règle de sourcing** (recrutement) sur un rayon : champ `sourcing` de la
+  sous-zone `{ level: "strict" | "souple", note: "..." }`. `strict` = profils
+  cloisonnés (ex : boucher ≠ vendeur, pas de passerelle entre eux) ; `souple` =
+  profils interchangeables (ex : poissonnier ≃ vendeur, passerelle dans les deux
+  sens). Les `passerelles` doivent refléter la règle.
 - **Les enseignes similaires** d'un secteur : champ `enseignes` (liste de noms)
   sur la sous-zone. Les couleurs de marque sont approximées automatiquement
   (surcharge possible dans `BRAND` de `js/app.js`). Placeholder en attendant de

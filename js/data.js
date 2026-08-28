@@ -161,28 +161,49 @@ const STORE = {
           name: "Boucherie",
           icon: "🥩",
           description: "Découpe, préparation et vente de viandes.",
+          sourcing: {
+            level: "strict",
+            note: "Séparation stricte boucher ≠ vendeur. Le boucher exige une vraie maîtrise (découpe, désossage). On ne propose JAMAIS un vendeur pour un poste de boucher, ni un boucher pour un poste de vendeur : l'écart de compétences et de salaire est trop important.",
+          },
           jobs: [
             {
               id: "boucher",
               title: "Boucher",
+              kind: "artisan",
               aliases: ["Boucher-vendeur", "Ouvrier boucher"],
               photo: { icon: "🔪", gradient: ["#ef4444", "#7f1d1d"] },
               description:
-                "Métier artisanal : réception des carcasses, découpe, désossage, préparation et vente-conseil au client. Diplôme (CAP boucher) souvent requis.",
+                "Vrai métier artisanal : réception des carcasses, découpe, désossage, préparation et vente-conseil. Diplôme (CAP boucher) et vraie maîtrise de la découpe exigés. À ne pas confondre avec un vendeur en boucherie.",
               examples: [
                 "Découpe un quartier de bœuf en morceaux prêts à vendre.",
-                "Prépare des brochettes et rôtis pour le rayon.",
+                "Désosse et pare les pièces, prépare des brochettes et rôtis.",
                 "Conseille un client sur une cuisson et le poids par personne.",
               ],
               passerelles: ["chef-boucher", "boucher-ls"],
             },
             {
+              id: "vendeur-boucherie",
+              title: "Vendeur en boucherie",
+              kind: "vente",
+              aliases: ["Vendeur au rayon boucherie", "Employé de vente boucherie"],
+              photo: { icon: "🛍️", gradient: ["#f87171", "#991b1b"] },
+              description:
+                "Métier de VENTE, distinct du boucher : service et conseil au stand, mise en barquette, emballage, réassort, encaissement. N'assure pas la découpe ni le désossage. Ne peut pas être proposé sur un poste de boucher.",
+              examples: [
+                "Sert et conseille les clients au stand.",
+                "Met en barquette, étiquette et réapprovisionne la vitrine.",
+                "Encaisse au stand et entretient l'espace de vente.",
+              ],
+              passerelles: ["vendeur-charcuterie", "els-epicerie"],
+            },
+            {
               id: "chef-boucher",
               title: "Chef boucher / Responsable boucherie",
+              kind: "encadrement",
               aliases: ["Manager boucherie", "Chef d'équipe boucherie"],
               photo: { icon: "🥩", gradient: ["#b91c1c", "#450a0a"] },
               description:
-                "Encadre l'équipe de bouchers, gère les achats de viande, les marges, l'hygiène (HACCP) et la rentabilité du rayon traditionnel.",
+                "Encadre l'équipe de bouchers, gère les achats de viande, les marges, l'hygiène (HACCP) et la rentabilité du rayon traditionnel. C'est d'abord un boucher confirmé.",
               examples: [
                 "Négocie l'achat des carcasses et suit le rendement matière.",
                 "Planifie l'équipe et forme un apprenti.",
@@ -198,20 +219,40 @@ const STORE = {
           name: "Poissonnerie",
           icon: "🐟",
           description: "Marée, découpe et vente de poissons et fruits de mer.",
+          sourcing: {
+            level: "souple",
+            note: "Poissonnier et vendeur souvent interchangeables. Un vrai poissonnier va à la criée, vide et prépare le poisson ; mais la plupart des enseignes qui « cherchent un poissonnier » veulent en réalité un vendeur au stand. On peut donc proposer un vendeur pour un poste de poissonnier — et inversement — après avoir validé le niveau réellement attendu.",
+          },
           jobs: [
             {
               id: "poissonnier",
-              title: "Poissonnier / Responsable poissonnerie",
-              aliases: ["Vendeur marée", "Chef de rayon marée"],
+              title: "Poissonnier",
+              kind: "artisan",
+              aliases: ["Vrai poissonnier", "Poissonnier de métier", "Écailler"],
               photo: { icon: "🐟", gradient: ["#06b6d4", "#155e75"] },
               description:
-                "Réception de la marée, mise en banc (glace), écaillage, filetage et vente-conseil. Rayon exigeant sur la fraîcheur et la chaîne du froid.",
+                "Le vrai métier : va à la criée, réceptionne la marée, monte le banc de glace, écaille, vide et filète. Vente-conseil exigeante sur la fraîcheur. Dans les faits, souvent interchangeable avec un bon vendeur au stand.",
               examples: [
-                "Monte le banc de glace et dispose les poissons chaque matin.",
-                "Filète un poisson à la demande du client.",
-                "Gère les arrivages selon la pêche du jour et la saison.",
+                "Va à la criée choisir les arrivages du jour.",
+                "Vide, écaille et filète le poisson à la demande.",
+                "Monte le banc de glace et gère la chaîne du froid.",
               ],
-              passerelles: ["mgr-frais-trad", "resp-fl"],
+              passerelles: ["vendeur-poissonnerie", "mgr-frais-trad", "resp-fl"],
+            },
+            {
+              id: "vendeur-poissonnerie",
+              title: "Vendeur au stand poissonnerie",
+              kind: "vente",
+              aliases: ["Vendeur poissonnerie", "Employé stand marée"],
+              photo: { icon: "🛍️", gradient: ["#22d3ee", "#0e7490"] },
+              description:
+                "Métier de vente au stand marée : service, conseil, emballage, encaissement, mise en banc. Peut vider/préparer selon le niveau. C'est souvent ce que recherchent réellement les enseignes qui demandent « un poissonnier ».",
+              examples: [
+                "Sert et conseille les clients au stand.",
+                "Emballe, pèse et encaisse la commande.",
+                "Entretient le banc et réapprovisionne en glace.",
+              ],
+              passerelles: ["poissonnier", "vendeur-charcuterie"],
             },
           ],
         },
@@ -221,20 +262,40 @@ const STORE = {
           name: "Boulangerie / Pâtisserie",
           icon: "🥖",
           description: "Fabrication et cuisson de pains, viennoiseries et pâtisseries.",
+          sourcing: {
+            level: "strict",
+            note: "Séparation stricte boulanger ≠ vendeur. Le boulanger exige une vraie maîtrise (pétrissage, fabrication). On ne propose JAMAIS un vendeur pour un poste de boulanger, ni un boulanger pour un poste de vendeur : l'écart de compétences et de salaire est trop important.",
+          },
           jobs: [
             {
               id: "boulanger",
               title: "Boulanger / Pâtissier",
+              kind: "artisan",
               aliases: ["Responsable boulangerie", "Chef de fabrication BVP"],
               photo: { icon: "🥖", gradient: ["#f59e0b", "#78350f"] },
               description:
-                "Fabrique et cuit pains, viennoiseries et pâtisseries sur place (souvent à partir de pâtons ou en fabrication maison). Gère les cuissons échelonnées sur la journée.",
+                "Vrai métier artisanal : pétrissage, façonnage, fabrication et cuisson des pains, viennoiseries et pâtisseries. Vraie maîtrise de la fabrication exigée. À ne pas confondre avec un vendeur en boulangerie.",
               examples: [
-                "Lance les cuissons pour avoir du pain chaud aux heures de pointe.",
-                "Fabrique les pâtisseries et gâteaux de commande (anniversaires).",
+                "Pétrit et façonne les pâtes, lance les cuissons.",
+                "Fabrique les pâtisseries et gâteaux de commande.",
                 "Gère les stocks de matières premières (farine, beurre).",
               ],
               passerelles: ["mgr-frais-trad", "resp-traiteur-ls"],
+            },
+            {
+              id: "vendeur-boulangerie",
+              title: "Vendeur en boulangerie",
+              kind: "vente",
+              aliases: ["Vendeur boulangerie-pâtisserie", "Employé de vente BVP"],
+              photo: { icon: "🛍️", gradient: ["#fbbf24", "#92400e"] },
+              description:
+                "Métier de VENTE, distinct du boulanger : vente de pains, viennoiseries et pâtisseries, cuisson de terminaux (produits crus prêts à cuire), service, emballage, encaissement. N'assure pas le pétrissage ni la fabrication. Ne peut pas être proposé sur un poste de boulanger.",
+              examples: [
+                "Sert et conseille les clients, met en avant les produits.",
+                "Cuit les pains sur terminaux de cuisson (pas de fabrication).",
+                "Emballe, encaisse et réapprovisionne la vitrine.",
+              ],
+              passerelles: ["vendeur-charcuterie", "els-epicerie"],
             },
           ],
         },
@@ -244,20 +305,40 @@ const STORE = {
           name: "Charcuterie Traiteur Fromage",
           icon: "🧀",
           description: "Charcuterie, traiteur et fromage à la coupe (stand traditionnel).",
+          sourcing: {
+            level: "souple",
+            note: "Charcutier et vendeur interchangeables dans les deux sens. La découpe en charcuterie s'apprend vite : quand une enseigne demande un charcutier, on peut transmettre des vendeurs en charcuterie, et inversement.",
+          },
           jobs: [
             {
               id: "fromager",
-              title: "Charcutier-traiteur / Fromager (coupe)",
-              aliases: ["Vendeur charcuterie-traiteur-fromage", "Vendeur coupe", "Responsable Charcuterie Traiteur Fromage"],
+              title: "Charcutier-traiteur / Fromager",
+              kind: "artisan",
+              aliases: ["Charcutier-traiteur", "Fromager", "Responsable coupe"],
               photo: { icon: "🧀", gradient: ["#eab308", "#713f12"] },
               description:
-                "Vente à la coupe de fromages et charcuteries, conseil client, découpe, emballage et mise en valeur du stand traditionnel.",
+                "Le métier de la coupe : préparation traiteur, connaissance des fromages et charcuteries, découpe soignée, conseil et théâtralisation du stand. Interchangeable avec un vendeur en charcuterie dans la plupart des enseignes.",
               examples: [
-                "Compose un plateau de fromages pour un client.",
+                "Compose un plateau de fromages ou une offre traiteur.",
                 "Découpe le jambon à la demande et gère la rotation.",
                 "Propose une dégustation pour faire découvrir un produit.",
               ],
-              passerelles: ["resp-charcuterie-ls", "mgr-frais-trad"],
+              passerelles: ["vendeur-charcuterie", "resp-charcuterie-ls", "mgr-frais-trad"],
+            },
+            {
+              id: "vendeur-charcuterie",
+              title: "Vendeur en charcuterie / traiteur",
+              kind: "vente",
+              aliases: ["Vendeur au stand charcuterie", "Vendeur traiteur", "Employé coupe"],
+              photo: { icon: "🛍️", gradient: ["#facc15", "#854d0e"] },
+              description:
+                "Métier de vente au stand coupe : découpe (simple à apprendre), emballage, conseil, encaissement, réassort. Interchangeable avec le charcutier : on peut le proposer sur un poste de charcutier, et inversement.",
+              examples: [
+                "Sert et conseille au stand charcuterie/traiteur.",
+                "Découpe et emballe à la demande, pèse et encaisse.",
+                "Réapprovisionne et met en valeur la vitrine.",
+              ],
+              passerelles: ["fromager", "resp-charcuterie-ls", "vendeur-boucherie"],
             },
           ],
         },
