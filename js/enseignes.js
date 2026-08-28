@@ -196,10 +196,37 @@ window.Enseignes = (function () {
     return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6 ? "#111827" : "#ffffff";
   }
 
+  // Rend une tuile de marque (nom stylisé). Si un vrai fichier logo existe dans
+  // assets/logos/, hydrateLogos() le détecte et remplace la tuile par l'image.
   function logoTile(e, big) {
-    const cls = "ens-logo" + (big ? " ens-logo--big" : "");
-    if (e.logo) return `<span class="${cls}"><img src="${e.logo}" alt="${esc(e.name)}"></span>`;
-    return `<span class="${cls} ens-logo--wm" style="--bc:${e.color};color:${contrast(e.color)}">${esc(e.wordmark || e.name)}</span>`;
+    const cls = "ens-logo ens-logo--wm" + (big ? " ens-logo--big" : "");
+    const src = e.logo ? ` data-logo-src="${e.logo}"` : "";
+    return `<span class="${cls}" style="--bc:${e.color};color:${contrast(e.color)}" data-logo-id="${e.id}"${src}>${esc(e.wordmark || e.name)}</span>`;
+  }
+
+  // Cherche un logo image pour chaque tuile (assets/logos/<id>.svg puis .png,
+  // ou le chemin `logo` explicite) et remplace la tuile texte s'il existe.
+  function hydrateLogos() {
+    root.querySelectorAll(".ens-logo[data-logo-id]").forEach((tile) => {
+      const id = tile.getAttribute("data-logo-id");
+      const explicit = tile.getAttribute("data-logo-src");
+      const candidates = explicit
+        ? [explicit]
+        : ["assets/logos/" + id + ".svg", "assets/logos/" + id + ".png"];
+      let i = 0;
+      const probe = new Image();
+      probe.onload = () => {
+        tile.classList.remove("ens-logo--wm");
+        tile.textContent = "";
+        tile.style.background = "#fff";
+        const img = document.createElement("img");
+        img.src = probe.src;
+        img.alt = id;
+        tile.appendChild(img);
+      };
+      probe.onerror = () => { i += 1; if (i < candidates.length) probe.src = candidates[i]; };
+      probe.src = candidates[0];
+    });
   }
 
   /* ------------------------------------------------- Chapitres d'une fiche */
@@ -373,6 +400,7 @@ window.Enseignes = (function () {
   function paint() {
     root.innerHTML = current ? renderDetail(current) : renderGrid();
     wire();
+    hydrateLogos();
   }
 
   function wire() {
