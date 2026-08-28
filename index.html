@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Les métiers de la grande distribution — Formation</title>
+  <title>Formation Grande Distribution</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -13,8 +13,8 @@
     <div class="app-header__brand">
       <span class="app-header__logo">🏬</span>
       <div>
-        <h1 class="app-header__title">Les métiers de la grande distribution</h1>
-        <p class="app-header__subtitle">Explorez le magasin, cliquez sur un espace pour découvrir les métiers</p>
+        <h1 class="app-header__title">Formation Grande Distribution</h1>
+        <p class="app-header__subtitle" id="app-subtitle">Explorez le magasin, cliquez sur un espace pour découvrir les métiers</p>
       </div>
     </div>
     <div class="app-header__right">
@@ -28,7 +28,13 @@
     </div>
   </header>
 
-  <!-- Zone principale -->
+  <!-- Onglets de formation -->
+  <nav class="app-tabs" id="app-tabs" aria-label="Onglets de formation">
+    <button type="button" class="app-tab is-active" data-tab="metiers">🧭 Formation Métiers</button>
+    <button type="button" class="app-tab" data-tab="marche">📊 Formation Marché</button>
+  </nav>
+
+  <!-- ============ ONGLET 1 : MÉTIERS (plan du magasin) ============ -->
   <main class="stage" id="stage">
 
     <!-- Niveau 0 : plan du magasin -->
@@ -54,7 +60,11 @@
     </div>
   </aside>
 
+  <!-- ============ ONGLET 2 : MARCHÉ ============ -->
+  <main class="market" id="market" hidden aria-label="Formation marché"></main>
+
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/marche.js"></script>
 </body>
 </html>

@@ -33,10 +33,11 @@ python3 -m http.server 8000
 ## Structure des fichiers
 
 ```
-index.html        Structure de la page (3 vues : plan, zone, fiche métier)
-css/styles.css    Mise en forme (plan SVG, cartes, panneau fiche métier)
-js/data.js        ⭐ TOUT LE CONTENU (zones, sous-zones, métiers, passerelles)
-js/app.js         Plan SVG (objet PLAN) + logique de navigation et rendu
+index.html        Structure : 2 onglets (Formation Métiers / Formation Marché)
+css/styles.css    Mise en forme (plan SVG, fiches métier, page marché)
+js/data.js        ⭐ CONTENU MÉTIERS (zones, sous-zones, métiers, salaires, passerelles)
+js/app.js         Onglet Métiers : plan SVG (objet PLAN) + navigation et rendu
+js/marche.js      ⭐ Onglet Marché : contenu (parts de marché, adhérents, réseau…) + rendu
 ```
 
 ## Modifier le contenu
