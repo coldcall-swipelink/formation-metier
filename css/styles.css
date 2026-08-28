@@ -1010,12 +1010,17 @@ body:not(.tab-metiers) .app-header__right { display: none; }
 }
 .ens-logo img { max-width: 100%; max-height: 100%; display: block; }
 .ens-logo--wm { background: var(--bc); font-weight: 800; font-size: 0.9rem; line-height: 1.05; letter-spacing: -0.01em; }
-/* Tuile en mode image (logo réel) : boîte à dimensions fixes, image contenue */
-.ens-logo--img { width: 96px; min-width: 96px; height: 52px; padding: 5px; background: #fff; box-shadow: inset 0 0 0 1px var(--border); }
-.ens-logo--img img { width: 100%; height: 100%; object-fit: contain; }
+/* Tuile en mode image (logo réel) : boîte fixe, logo ENTIER visible et jamais rogné */
+.ens-logo--img {
+  display: flex; align-items: center; justify-content: center;
+  width: 118px; min-width: 118px; height: 66px; padding: 8px;
+  background: #fff; border-radius: 10px; overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.ens-logo--img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .ens-logo--big { min-width: 104px; height: 68px; border-radius: 14px; }
 .ens-logo--big.ens-logo--wm { font-size: 1.15rem; }
-.ens-logo--big.ens-logo--img { width: 132px; min-width: 132px; height: 76px; padding: 7px; }
+.ens-logo--big.ens-logo--img { width: 168px; min-width: 168px; height: 96px; padding: 12px; border-radius: 12px; }
 
 /* Grille de cartes */
 .ens-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0.9rem; }
@@ -1035,8 +1040,14 @@ body:not(.tab-metiers) .app-header__right { display: none; }
 /* Badges statut / priorité */
 .ens-badge { font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
 .st-indep { background: #dcfce7; color: #065f46; }
+.st-hybride { background: #ede9fe; color: #5b21b6; }
 .st-integre { background: #f1f5f9; color: #475569; }
 .st-mixte { background: #ffedd5; color: #9a3412; }
+.ens-badge--client { background: #16a34a; color: #fff; }
+
+/* Enseigne "déjà client" : contour vert */
+.ens-card--client { border: 2px solid #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.12), var(--shadow); }
+.ens-detail--client { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.15), var(--shadow-lg); }
 .pr-haute { background: #fef3c7; color: #92400e; }
 .pr-moyenne { background: #e0e7ff; color: #3730a3; }
 .pr-faible { background: #f1f5f9; color: #64748b; }
@@ -1088,6 +1099,7 @@ body:not(.tab-metiers) .app-header__right { display: none; }
 
 .ens-statut { padding: 0.9rem 1rem; border-radius: var(--radius-sm); line-height: 1.6; font-size: 0.92rem; border: 1px solid; }
 .ens-statut--independant { background: #f0fdf4; border-color: #bbf7d0; }
+.ens-statut--hybride { background: #f5f3ff; border-color: #ddd6fe; }
 .ens-statut--integre { background: #f8fafc; border-color: #e2e8f0; }
 .ens-statut--mixte { background: #fff7ed; border-color: #fed7aa; }
 

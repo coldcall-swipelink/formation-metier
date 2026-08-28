@@ -20,6 +20,7 @@ window.Enseignes = (function () {
 
   const STATUTS = {
     independant: { label: "Indépendant", cls: "st-indep", icon: "👤" },
+    hybride: { label: "Hybride", cls: "st-hybride", icon: "⚗️" },
     integre: { label: "Intégré", cls: "st-integre", icon: "🏢" },
     mixte: { label: "Mixte — à vérifier", cls: "st-mixte", icon: "🔀" },
   };
@@ -53,6 +54,7 @@ window.Enseignes = (function () {
     },
     {
       id: "intermarche", name: "Intermarché", wordmark: "Intermarché", group: "Les Mousquetaires",
+      logo: "assets/logos/mousquetaires.webp",
       color: "#e2001a", statut: "independant", prio: "haute", pdm: "≈ 17-18 % (avec Netto)",
       formats: "Supermarchés, Intermarché Contact / Express, hypers",
       pitch: "Chefs d'entreprise indépendants qui co-dirigent leur groupement.",
@@ -86,6 +88,7 @@ window.Enseignes = (function () {
     },
     {
       id: "netto", name: "Netto", wordmark: "Netto", group: "Les Mousquetaires",
+      logo: "assets/logos/mousquetaires.webp",
       color: "#e2001a", statut: "independant", prio: "moyenne", pdm: "inclus dans Les Mousquetaires",
       formats: "Maxidiscompte (petits formats)",
       pitch: "Format discount des Mousquetaires : même modèle adhérent, effectifs plus réduits.",
@@ -100,35 +103,36 @@ window.Enseignes = (function () {
     },
     {
       id: "carrefour-prox", name: "Carrefour Market / Contact", wordmark: "Carrefour Market", group: "Carrefour",
-      color: "#2563eb", statut: "mixte", prio: "verifier", pdm: "part du groupe Carrefour ≈ 21-22 %",
+      color: "#2563eb", statut: "independant", prio: "haute", pdm: "part du groupe Carrefour ≈ 21-22 %",
       formats: "Supermarchés (Market), proximité (Contact, City, Express)",
-      pitch: "Peut être intégré OU franchisé : à qualifier systématiquement avant d'appeler.",
-      vocab: { term: "Franchisé", warn: "si le magasin est franchisé", note: "Si intégré : on parle à un directeur salarié." },
+      pitch: "Très majoritairement exploités par des franchisés indépendants — une vraie cible.",
+      vocab: { term: "Franchisé", warn: "", note: "Chef d'entreprise indépendant qui exploite le magasin sous enseigne Carrefour." },
       modele: [
-        "Carrefour est un <strong>modèle mixte</strong> : une partie des magasins de proximité et supermarchés est exploitée par des <strong>franchisés indépendants</strong>, une autre est <strong>intégrée</strong> (exploitée par le groupe).",
+        "La proximité et les supermarchés Carrefour (Market, Contact, City, Express) sont <strong>très majoritairement en franchise</strong> : exploités par des <strong>franchisés indépendants</strong> qui recrutent et décident chez eux.",
       ],
       prospection: [
-        "<strong>Règle absolue : vérifier le statut du magasin avant l'appel.</strong> Un Carrefour Market peut être intégré ou franchisé — ce n'est pas la même conversation ni le même interlocuteur.",
-        "<strong>Haute priorité si franchisé</strong> (indépendant qui décide) · <strong>faible si intégré</strong>.",
+        "<strong>Cible :</strong> le franchisé est un patron indépendant — décision rapide, budget serré, ROI immédiat, comme un adhérent.",
+        "Vérifier tout de même que le point de vente est bien franchisé (une minorité reste intégrée).",
       ],
-      reseau: "Réseau de franchisés moins fédéré que les coopératives, mais la qualification du statut reste la clé.",
+      reseau: "Réseau de franchisés moins fédéré que les coopératives, mais les franchisés d'une zone se connaissent : la recommandation joue.",
     },
     {
       id: "carrefour-hyper", name: "Carrefour (hypermarché)", wordmark: "Carrefour", group: "Carrefour",
-      color: "#1e40af", statut: "integre", prio: "faible", pdm: "part du groupe ≈ 21-22 %",
+      color: "#1e40af", statut: "hybride", prio: "moyenne", pdm: "part du groupe ≈ 21-22 %",
       formats: "Hypermarchés",
-      pitch: "Majoritairement intégré : décisions au siège, cycle long.",
-      vocab: null,
+      pitch: "Modèle hybride : une partie intégrée, une part croissante en franchise / location-gérance.",
+      vocab: { term: "Franchisé ou directeur", warn: "selon le magasin", note: "Franchise/location-gérance = un indépendant décide ; intégré = un directeur salarié." },
       modele: [
-        "Les hypermarchés Carrefour sont <strong>majoritairement intégrés</strong> : le directeur est un salarié, les décisions d'achat passent par le siège / la DRH régionale / les achats.",
+        "Le parc d'hypers Carrefour est <strong>hybride</strong> : certains restent <strong>intégrés</strong> (directeur salarié, décisions au siège), une <strong>part croissante passe en franchise ou location-gérance</strong>, confiée à des exploitants indépendants.",
       ],
       prospection: [
-        "<strong>Faible priorité :</strong> cycle de décision long (3-12 mois), appels d'offres, juridique, sécurité. Faible taux de conversion sur notre approche.",
+        "<strong>À qualifier :</strong> identifier si l'hyper est intégré ou en franchise/location-gérance.",
+        "Si exploité par un indépendant : décideur autonome, bonne cible. Si intégré : cycle long, faible autonomie en magasin.",
       ],
       reseau: null,
     },
     {
-      id: "auchan", name: "Auchan", wordmark: "Auchan", group: "Auchan Retail",
+      id: "auchan", name: "Auchan", wordmark: "Auchan", group: "Auchan Retail", client: true,
       color: "#d43f2a", statut: "integre", prio: "faible", pdm: "≈ 7-8 %",
       formats: "Hypers, supermarchés, proximité",
       pitch: "Groupe intégré : RH interne, décisions centralisées.",
@@ -170,7 +174,7 @@ window.Enseignes = (function () {
       reseau: null,
     },
     {
-      id: "casino", name: "Monoprix / Franprix / Casino", wordmark: "Casino", group: "Groupe Casino",
+      id: "casino", name: "Monoprix / Franprix / Casino", wordmark: "Casino", group: "Groupe Casino", client: true,
       color: "#6d6e71", statut: "integre", prio: "faible", pdm: "résiduel et en recul",
       formats: "Supermarchés, proximité urbaine",
       pitch: "Groupe intégré en recul ; quelques proximités en franchise.",
@@ -253,6 +257,7 @@ window.Enseignes = (function () {
     const statutText = {
       independant: "Le magasin appartient à une <strong>personne</strong> : un entrepreneur qui a investi son argent, recrute qui il veut et <strong>décide seul</strong>. On parle à un <strong>patron qui décide</strong> — un « oui » peut tomber dès le premier rendez-vous, mais il regarde le prix de près.",
       integre: "Le magasin appartient au <strong>groupe</strong>. Le patron est un <strong>salarié</strong> qui applique une stratégie décidée ailleurs et fait valider ses achats par des services centraux. On parle à un <strong>directeur qui exécute</strong> — cycle long, faible autonomie.",
+      hybride: "Le parc est <strong>mixte</strong> : une partie est intégrée (directeur salarié), une part est confiée à des <strong>indépendants</strong> (franchise, location-gérance) qui décident chez eux. <strong>À qualifier au cas par cas</strong> — mais il y a de vraies cibles.",
       mixte: "Selon le magasin, il peut être <strong>intégré</strong> (exploité par le groupe) ou <strong>franchisé</strong> (exploité par un indépendant). <strong>Ce n'est pas la même conversation</strong> : il faut qualifier le statut avant d'appeler.",
     }[e.statut];
     ch.push({
@@ -308,7 +313,7 @@ window.Enseignes = (function () {
   const FILTERS = [
     ["tous", "Toutes"],
     ["independant", "👤 Indépendants (cibles)"],
-    ["mixte", "🔀 À qualifier"],
+    ["hybride", "⚗️ Hybrides"],
     ["integre", "🏢 Intégrés"],
   ];
 
@@ -318,7 +323,7 @@ window.Enseignes = (function () {
     const cards = list.map((e) => {
       const st = STATUTS[e.statut], pr = PRIOS[e.prio];
       return `
-        <button class="ens-card" data-open="${e.id}">
+        <button class="ens-card${e.client ? " ens-card--client" : ""}" data-open="${e.id}">
           ${logoTile(e)}
           <div class="ens-card__body">
             <div class="ens-card__name">${esc(e.name)}</div>
@@ -326,6 +331,7 @@ window.Enseignes = (function () {
             <div class="ens-card__badges">
               <span class="ens-badge ${st.cls}">${st.icon} ${st.label}</span>
               <span class="ens-badge ${pr.cls}">${pr.label}</span>
+              ${e.client ? `<span class="ens-badge ens-badge--client">✅ Déjà client</span>` : ""}
             </div>
           </div>
           <span class="ens-card__go">›</span>
@@ -361,7 +367,7 @@ window.Enseignes = (function () {
     return `
       <div class="ens-wrap">
         <button class="ens-back" data-back>← Toutes les enseignes</button>
-        <div class="ens-detail" style="--ec:${e.color}">
+        <div class="ens-detail${e.client ? " ens-detail--client" : ""}" style="--ec:${e.color}">
           <header class="ens-detail__head">
             ${logoTile(e, true)}
             <div>
@@ -370,6 +376,7 @@ window.Enseignes = (function () {
               <div class="ens-card__badges">
                 <span class="ens-badge ${st.cls}">${st.icon} ${st.label}</span>
                 <span class="ens-badge ${pr.cls}">${pr.label}</span>
+                ${e.client ? `<span class="ens-badge ens-badge--client">✅ Déjà client</span>` : ""}
               </div>
             </div>
           </header>
