@@ -423,40 +423,49 @@
   }
 
   /* ====================================================================== */
-  /*  ONGLETS                                                               */
+  /*  ONGLETS (contrôleur générique des 3 formations)                       */
   /* ====================================================================== */
   const tabs = document.getElementById("app-tabs");
-  const stage = document.getElementById("stage");
-  const market = document.getElementById("market");
   const jobPanel = document.getElementById("job-panel");
   const subtitle = document.getElementById("app-subtitle");
-  let marketRendered = false;
 
+  const MAINS = {
+    metiers: document.getElementById("stage"),
+    marche: document.getElementById("market"),
+    enseignes: document.getElementById("enseignes"),
+  };
   const SUBTITLES = {
     metiers: "Explorez le magasin, cliquez sur un espace pour découvrir les métiers",
     marche: "Comprendre le marché de la grande distribution et ses spécificités",
+    enseignes: "Explorez chaque enseigne et découvrez ses spécificités pas à pas",
   };
 
-  function activateTab(name) {
-    const isMarche = name === "marche";
-    document.body.classList.toggle("is-marche", isMarche);
-
-    if (isMarche && !marketRendered) {
-      market.innerHTML = renderMarche();
-      marketRendered = true;
-      // Navigation du sommaire (défilement doux)
-      market.querySelectorAll("[data-goto]").forEach((a) => {
+  const rendered = {};
+  const RENDER = {
+    marche: () => {
+      MAINS.marche.innerHTML = renderMarche();
+      MAINS.marche.querySelectorAll("[data-goto]").forEach((a) => {
         a.addEventListener("click", (e) => {
           e.preventDefault();
           const el = document.getElementById(a.getAttribute("data-goto"));
           if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
         });
       });
-    }
+    },
+    enseignes: () => {
+      if (window.Enseignes) window.Enseignes.render(MAINS.enseignes);
+    },
+  };
 
-    stage.hidden = isMarche;
-    market.hidden = !isMarche;
-    if (isMarche && jobPanel) jobPanel.setAttribute("aria-hidden", "true");
+  function activateTab(name) {
+    if (!MAINS[name]) return;
+    document.body.className = document.body.className.replace(/\btab-\w+/g, "").trim();
+    document.body.classList.add("tab-" + name);
+
+    if (RENDER[name] && !rendered[name]) { RENDER[name](); rendered[name] = true; }
+
+    Object.keys(MAINS).forEach((k) => { MAINS[k].hidden = k !== name; });
+    if (name !== "metiers" && jobPanel) jobPanel.setAttribute("aria-hidden", "true");
     if (subtitle) subtitle.textContent = SUBTITLES[name] || "";
 
     tabs.querySelectorAll(".app-tab").forEach((b) =>

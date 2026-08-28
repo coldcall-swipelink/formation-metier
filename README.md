@@ -37,7 +37,10 @@ index.html        Structure : 2 onglets (Formation Métiers / Formation Marché)
 css/styles.css    Mise en forme (plan SVG, fiches métier, page marché)
 js/data.js        ⭐ CONTENU MÉTIERS (zones, sous-zones, métiers, salaires, passerelles)
 js/app.js         Onglet Métiers : plan SVG (objet PLAN) + navigation et rendu
-js/marche.js      ⭐ Onglet Marché : contenu (parts de marché, adhérents, réseau…) + rendu
+js/marche.js      ⭐ Onglet Marché : contenu + rendu + contrôleur des 3 onglets
+js/enseignes.js   ⭐ Onglet Enseignes : explorateur interactif (grille + fiche à
+                  navigation par étapes). Champ `logo` par enseigne pour de vrais
+                  logos (sinon tuile de marque). Filtres par statut.
 ```
 
 ## Modifier le contenu

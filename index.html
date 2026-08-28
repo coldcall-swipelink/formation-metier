@@ -6,7 +6,7 @@
   <title>Formation Grande Distribution</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
+<body class="tab-metiers">
 
   <!-- En-tête -->
   <header class="app-header">
@@ -32,6 +32,7 @@
   <nav class="app-tabs" id="app-tabs" aria-label="Onglets de formation">
     <button type="button" class="app-tab is-active" data-tab="metiers">🧭 Formation Métiers</button>
     <button type="button" class="app-tab" data-tab="marche">📊 Formation Marché</button>
+    <button type="button" class="app-tab" data-tab="enseignes">🏷️ Enseignes</button>
   </nav>
 
   <!-- ============ ONGLET 1 : MÉTIERS (plan du magasin) ============ -->
@@ -63,8 +64,12 @@
   <!-- ============ ONGLET 2 : MARCHÉ ============ -->
   <main class="market" id="market" hidden aria-label="Formation marché"></main>
 
+  <!-- ============ ONGLET 3 : ENSEIGNES ============ -->
+  <main class="enseignes" id="enseignes" hidden aria-label="Explorateur d'enseignes"></main>
+
   <script src="js/data.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/enseignes.js"></script>
   <script src="js/marche.js"></script>
 </body>
 </html>
