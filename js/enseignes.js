@@ -212,13 +212,13 @@ window.Enseignes = (function () {
       const explicit = tile.getAttribute("data-logo-src");
       const candidates = explicit
         ? [explicit]
-        : ["assets/logos/" + id + ".svg", "assets/logos/" + id + ".png"];
+        : ["assets/logos/" + id + ".webp", "assets/logos/" + id + ".svg", "assets/logos/" + id + ".png"];
       let i = 0;
       const probe = new Image();
       probe.onload = () => {
         tile.classList.remove("ens-logo--wm");
+        tile.classList.add("ens-logo--img");
         tile.textContent = "";
-        tile.style.background = "#fff";
         const img = document.createElement("img");
         img.src = probe.src;
         img.alt = id;

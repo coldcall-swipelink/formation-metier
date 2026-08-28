@@ -6,9 +6,10 @@ dans l'onglet « Enseignes ».
 
 ## Comment nommer les fichiers
 
-Un fichier par enseigne, nommé avec **l'identifiant de l'enseigne**, en `.svg`
-(recommandé) ou `.png` (fond transparent de préférence). Le code cherche d'abord
-le `.svg`, puis le `.png`.
+Un fichier par enseigne, nommé avec **l'identifiant de l'enseigne**, en `.webp`,
+`.svg` ou `.png` (fond transparent de préférence). Le code cherche dans l'ordre
+`.webp`, puis `.svg`, puis `.png`. **Nom = identifiant, sans double extension**
+(ex. `leclerc.webp`, pas `leclerc.svg.webp`).
 
 | Fichier à déposer            | Enseigne                          |
 | ---------------------------- | --------------------------------- |
